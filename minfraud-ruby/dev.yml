@@ -1,0 +1,12 @@
+name: minfraud-ruby
+
+type: ruby
+
+up:
+  - homebrew:
+  - ruby: 2.5.3
+  - bundler
+
+commands:
+  test:
+    run: bundle exec rake spec
