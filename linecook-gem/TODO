@@ -1,0 +1,17 @@
+* Better image handling
+* Refactor
+ * AWS access
+ * secret handling
+* Figure out config file format, fix up config class
+* config parser
+ * Memory to commit
+ * disk space to commit
+* Figure out linecook commands
+ * Write out what the CLI should look like
+ * Write the manpage first
+ * Have a CLI spec that tests every command, in addition to the unit tests.
+* Have tests use sample config and sample secrets
+* Better error handling
+ * Check if builds already running, etc
+* Extract /abstract out ubuntuisms for build
+ * Builder doesn't matter
