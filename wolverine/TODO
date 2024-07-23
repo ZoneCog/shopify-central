@@ -1,0 +1,2 @@
+- cache methods on Wolverine, rather than using method_missing all the time
+- better tests around error handling and stacktrace trimming
