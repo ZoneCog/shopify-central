@@ -1,0 +1,8 @@
+*.gem
+.bundle
+*.lock
+pkg/*
+/tmp
+/tags
+/gems.tags
+/bin
