@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Fetch repository list from Shopify organization
       run: |
-        for PAGE in {1..4}; do
+        for PAGE in {2..2}; do
           curl -s "https://api.github.com/orgs/shopify/repos?page=$PAGE&per_page=100" | jq -r '.[].name' >> repo_list.txt
         done
 
