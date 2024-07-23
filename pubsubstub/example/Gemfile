@@ -1,0 +1,2 @@
+gem 'pubsubstub', path: '../'
+gem 'puma', '~> 3.4'
