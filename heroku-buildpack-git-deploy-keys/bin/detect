@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#bin/detect <build-dir>
+
+echo "Git Deploy Keys"
+exit 0
