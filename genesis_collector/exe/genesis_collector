@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+require 'genesis_collector'
+require 'pp'
+require 'optparse'
+require 'json'
+
+options = {
+  submit: false
+}
+config = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: genesis_collector [options]"
+  opts.on('--submit', 'Submit data to Genesis server') do
+    options[:submit] = true
+  end
+  opts.on('--json', 'Output JSON') do
+    options[:json] = true
+  end
+  opts.on_tail('-h', '--help', 'Show this message') do
+    puts opts
+    exit
+  end
+  opts.on_tail('--version', 'Show version') do
+    puts "geensis_collector #{GenesisCollector::VERSION}"
+    exit
+  end
+end.parse!
+
+if true == options[:submit]
+  raise ArgumentError, 'Missing config file: ~/.genesis' unless File.exist?("#{ENV['HOME']}/.genesis")
+  raw_config = JSON.parse(File.read("#{ENV['HOME']}/.genesis"))
+  config[:endpoint] = raw_config['endpoint']
+  config[:api_token] = raw_config['api_token']
+end
+
+collector = GenesisCollector::Collector.new(config)
+collector.collect!
+
+if options[:json]
+  puts JSON.pretty_generate(collector.payload)
+else
+  puts "SKU: #{collector.sku}"
+  pp collector.payload
+end
+
+collector.submit! if true == options[:submit]

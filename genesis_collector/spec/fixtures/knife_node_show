@@ -1,0 +1,19 @@
+{
+  "foo1.example.com": {
+    "ohai_time": 1456844897.5986547,
+    "run_list": [
+  "role[location--pdx]",
+  "role[app--genesis--server]"
+]
+,
+    "tags": [
+      "tagone",
+      "primary"
+    ],
+    "environment": "some-other-branch",
+    "roles": [
+      "role-three",
+      "role-four"
+    ]
+  }
+}
