@@ -1,0 +1,7 @@
+config/*
+!config/config.sample.json
+testdata/*
+*.json.gz
+*.elog
+brigade
+brigade.lock
