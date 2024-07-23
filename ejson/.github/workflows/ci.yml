@@ -1,0 +1,20 @@
+name: CI
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Go test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get latest Go version
+        id: gover
+        run: echo goversion=$(awk -F':|-' '!/^#/ {print $2}' .github/dockerfile-for-dependabot/Dockerfile) >> "$GITHUB_OUTPUT"
+      - name: Setup go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "${{ steps.gover.outputs.goversion }}"
+      - run: |
+          go mod download
+          go test -race -coverprofile=coverage.txt -covermode=atomic
