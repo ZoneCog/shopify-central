@@ -1,0 +1,9 @@
+sublimelinter-rorybot
+-------------------------------
+This linter plugin for sublimelinter provides an interface to rorybot.
+** IMPORTANT! **
+
+Before this plugin will activate, you *must*
+follow the installation instructions here:
+
+https://github.com/shopify/sublimelinter-rorybot
