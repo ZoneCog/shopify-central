@@ -1,0 +1,10 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+inherit_from:
+  - .rubocop_todo.yml
+
+AllCops:
+  SuggestExtensions: false
+  Exclude:
+    - vendor/**/*
