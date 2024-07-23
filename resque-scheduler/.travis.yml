@@ -1,0 +1,26 @@
+language: ruby
+sudo: false
+cache: bundler
+rvm:
+- 2.3.1
+- jruby-9.1.2.0
+env:
+  global:
+  - COVERAGE=1
+  - JRUBY_OPTS=''
+  - RUBYOPT='-W0'
+matrix:
+  allow_failures:
+  - rvm: jruby-9.1.2.0
+services:
+- redis-server
+deploy:
+  provider: rubygems
+  api_key:
+    secure: dM97lL/jTu14mEHD2Ih/vQfZ8cWJWb+DQ8UKZjkD2JfYtvwEAlkPG9RrrDkSHb5qkYxG2VAhjyx/0MZJ0TsVL6wrLMC9gcJb3yomw2Sch2Noj68tEndiSUHnxrB9gKzbhHbjLQXDqYf4Hco9/PHHQp4piFPJhLzNZRehIuTJPcA=
+  gem: resque-scheduler
+  on:
+    tags: true
+    repo: resque/resque-scheduler
+    rvm: 2.3.1
+    all_branches: true

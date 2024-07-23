@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    parallelism: 1
+    working_directory: ~/resque-scheduler
+    docker:
+      - image: circleci/ruby:2.4.1-node
+      - image: redis:4.0.12
+
+    steps:
+      - checkout
+
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle
+
+      # Run rspec in parallel
+      - run: |
+          REDIS_NAMESPACE_DEPRECATIONS=1 rake testing
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
