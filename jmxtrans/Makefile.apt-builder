@@ -1,0 +1,11 @@
+VERSION=${shell head -1 debian/changelog | cut -d'(' -f2 | cut -d')' -f1}
+
+apt-builder-fetch:
+	# noop
+
+apt-builder-deps:
+	# noop
+
+apt-builder-build:
+	ant -Dversion=$(VERSION) debian
+	mv target/*.changes target/*.deb ..
