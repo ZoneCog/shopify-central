@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Fetch repository list from Uncharted organization
+    - name: Fetch repository list from Shopify organization
       run: |
         curl -s https://api.github.com/orgs/shopify/repos?per_page=100 | jq -r '.[].name' > repo_list.txt
 
