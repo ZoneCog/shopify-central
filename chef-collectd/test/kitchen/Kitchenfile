@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby -w
+# syntax highlight!
+
+test_platforms = { centos: %w(5.8 6.3), ubuntu: %w(10.04 12.04) }
+
+test_platforms.each do |key, value|
+  value.each do |relver|
+    platform key do
+      version relver do
+        box "opscode-#{ key.to_s }-#{ relver }"
+        box_url "https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-#{ key.to_s }-#{ relver }.box"
+      end
+    end
+  end
+end
+
+cookbook 'collectd' do
+  configuration 'client'
+  configuration 'client_collectd'
+  configuration 'client_graphite'
+  configuration 'default'
+  configuration 'server'
+  runtimes []
+  lint false
+end

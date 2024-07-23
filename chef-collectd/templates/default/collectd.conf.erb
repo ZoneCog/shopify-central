@@ -1,0 +1,18 @@
+# Config file for collectd(1).
+#
+# Some plugins need additional configuration and are disabled by default.
+# Please read collectd.conf(5) for details.
+#
+# You should also read /usr/share/doc/collectd/README.Debian.plugins before
+# enabling any more plugins.
+
+Hostname "<%= @node['fqdn'] %>"
+FQDNLookup "<%= @node['collectd']['fqdn_lookup'] %>"
+Interval <%= @node['collectd']['interval'] %>
+ReadThreads <%= @node['collectd']['read_threads'] %>
+TypesDB "<%= @node['collectd']['types_db'] %>"
+BaseDir "<%= @node['collectd']['prefix_dir'] %>"
+PluginDir "<%= @node['collectd']['plugin_dir'] %>"
+
+Include "<%= @node['collectd']['plugconf_dir'] %>/*.conf"
+Include "<%= @node['collectd']['sysconf_dir'] %>/thresholds.conf"
