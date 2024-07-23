@@ -1,0 +1,270 @@
+{
+  "lite plan": {
+    "note": "Incorrect capitalization of branded name.",
+    "replace": "Lite plan"
+  },
+  "unlimited plan": {
+    "note": "Incorrect capitalization of branded name.",
+    "replace": "Unlimited plan"
+  },
+  "shopify point of sale": {
+    "note": "Incorrect branded name.",
+    "replace": "Shopify POS"
+  },
+  "shopify manual": {
+    "replace": "Shopify Help Center",
+    "note": "Incorrect branded name."
+  },
+  "shopify docs": {
+    "replace": "Shopify Help Center",
+    "note": "Incorrect branded name."
+  },
+  "the documentation": {
+    "replace": "Shopify Help Center",
+    "note": "Incorrect branded name."
+  },
+  "support docs": {
+    "replace": "Shopify Help Center",
+    "note": "Incorrect branded name."
+  },
+  "help centre": {
+    "replace": "Shopify Help Center",
+    "note": "Incorrect branded name."
+  },
+  "shopify administrative panel": {
+    "replace": "Shopify admin",
+    "note": "Incorrect branded name."
+  },
+  "shopify dashboard": {
+    "replace": "Shopify admin",
+    "note": "Incorrect branded name."
+  },
+  "e.g.": {
+    "replace": ["like", "for example"],
+    "note": "Avoid Latin abbreviations."
+  },
+  "eg.": {
+    "replace": ["like", "for example"],
+    "note": "Avoid Latin abbreviations."
+  },
+  "eg": {
+    "replace": ["like", "for example"],
+    "note": "Avoid Latin abbreviations."
+  },
+  "ie": {
+    "replace": "that is",
+    "note": "Avoid Latin abbreviations."
+  },
+  "i.e.": {
+    "replace": "that is",
+    "note": "Avoid Latin abbreviations."
+  },
+  "ie.": {
+    "replace": "that is",
+    "note": "Avoid Latin abbreviations."
+  },
+   "via": {
+    "replace": ["by","with"],
+    "note": "Avoid Latin abbreviations."
+  },
+  "login to": {
+    "replace": "log into",
+    "note": "Login is a noun, not a verb."
+  },
+  "off of": {
+    "replace": "off",
+    "note": "Avoid unncessary prepositions."
+  },
+  "open up": {
+    "replace": "open",
+    "note": "Avoid unncessary prepositions."
+  },
+  "close down": {
+    "replace": "close",
+    "note": "Avoid unncessary prepositions."
+  },
+  "as of yet": {
+    "replace": "yet",
+    "note": "Avoid unnecessarily wordy phrases."
+  },
+    "due to the fact that": {
+    "replace": "because",
+    "note": "Avoid unnecessarily wordy phrases."
+  },
+  "customise": {
+    "replace": "customize",
+    "note": "Use American spelling."
+  },
+  "centre": {
+    "replace": "center",
+    "note": "Use American spelling."
+  },
+  "cancelled": {
+    "replace": "canceled",
+    "note": "Use American spelling."
+  },
+  "unfortunately": {
+    "replace": [],
+    "note": "Be direct and not apologetic."
+  },
+  "sorry": {
+    "replace": [],
+    "note": "Be direct and not apologetic."
+  },
+  "oops": {
+    "replace":[],
+    "note": "Be direct and not apologetic."
+  },
+  "type in": {
+    "replace": "enter",
+    "note": "Use controlled vocabulary."
+  },
+  "input": {
+    "replace": "enter",
+    "note": "Use controlled vocabulary."
+  },
+  "write": {
+    "replace": "enter",
+    "note": "Use controlled vocabulary."
+  },
+  "click on": {
+    "replace": "click",
+    "note": "Use controlled vocabulary."
+  },
+    "clicking on": {
+    "replace": "clicking",
+    "note": "Use controlled vocabulary."
+  },
+    "tap on": {
+    "replace": "tap",
+    "note": "Use controlled vocabulary."
+  },
+    "tapping on": {
+    "replace": "tapping",
+    "note": "Use controlled vocabulary."
+  },
+  "would like to": {
+    "replace": "want to",
+    "note": "Use controlled vocabulary."
+  },
+  "wish to": {
+    "replace": "want to",
+    "note": "Use controlled vocabulary."
+  },
+  "once the": {
+    "replace": ["when","after"],
+    "note": "Don't say 'once' if you mean 'when.'"
+  },
+  "once you": {
+    "replace": ["when","after"],
+    "note": "Don't say 'once' if you mean 'when.'"
+  },
+    "may": {
+    "replace": "might",
+    "note": "Use controlled vocabulary."
+  },
+  "dropdown menu": {
+    "replace": ["drop-down menu"],
+    "note": "Hyphenate this term."
+  },
+    "drop down menu": {
+    "replace": ["drop-down menu"],
+    "note": "Hyphenate this term."
+  },
+  "timeline": {
+    "replace": ["Timeline"],
+    "note": "Timeline is capitalized when referring to the feature in the Shopify admin."
+  },
+  "will": {
+      "replace": [],
+      "note": "Use present tense."
+  },
+  "you’ll": {
+      "replace": [],
+      "note": "Use present tense."
+  },
+  "won’t": {
+      "replace": [],
+      "note": "Use present tense."
+  },
+  "in fact": {
+      "replace": [],
+      "note": "Remove filler phrases."
+  },
+  "in order to": {
+      "replace": "to",
+      "note": "Remove filler phrases."
+  },
+  "for the purposes of": {
+      "replace": "to",
+      "note": "Remove filler phrases."
+  },
+  "it is not possible to": {
+      "replace": "you can’t",
+      "note": "Remove filler phrases."
+  },
+  "it’s not possible to": {
+      "replace": "you can’t",
+      "note": "Remove filler phrases."
+  },
+  "in the event that": {
+      "replace": "if",
+      "note": "Remove filler phrases."
+  },
+  "it’s best to": {
+      "replace": [],
+      "note": "Remove filler phrases."
+  },
+  "it is best to": {
+      "replace": [],
+      "note": "Remove filler phrases."
+  },
+  "it’s important to": {
+      "replace": [],
+      "note": "Remove filler phrases."
+  },
+  "it is important to": {
+      "replace": [],
+      "note": "Remove filler phrases."
+  },
+  "Almost entirely": {
+      "replace": [],
+      "note": "Remove filler phrases."
+  },
+  "Aimed at": {
+      "replace": "for",
+      "note": "Remove filler phrases."
+  },
+  "Once": {
+      "replace": ["when", "after"],
+      "note": "Use Style Guide vocabulary."
+  },
+  "viewed": {
+      "replace": "seen",
+      "note": "Use Style Guide vocabulary."
+  },
+  "since": {
+      "replace": "because",
+      "note": "Use Style Guide vocabulary."
+  },
+  "very": {
+      "replace": [],
+      "note": "Remove filler words."
+  },
+  "Adds in": {
+      "replace": "adds",
+      "note": "Remove filler words."
+  },
+  "focussing": {
+      "replace": "focusing",
+      "note": "Use Style Guide spelling."
+  },
+  "focussed": {
+      "replace": "focused",
+      "note": "Use Style Guide spelling."
+  },
+  "countries": {
+      "replace": "countries and regions",
+      "note": "Avoid politics."
+  }
+}

@@ -1,0 +1,6 @@
+components/
+coverage/
+retext-equality.js
+retext-equality.min.js
+retext-simplify.js
+retext-simplify.min.js

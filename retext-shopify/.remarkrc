@@ -1,0 +1,15 @@
+{
+  "output": true,
+  "plugins": {
+    "lint": {
+      "code-block-style": "fenced"
+    },
+    "github": {},
+    "comment-config": {},
+    "slug": {},
+    "validate-links": {}
+  },
+  "settings": {
+    "bullet": "*"
+  }
+}

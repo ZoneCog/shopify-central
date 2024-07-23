@@ -1,0 +1,9 @@
+.DS_Store
+*.log
+components/
+node_modules/
+coverage/
+retext-equality.js
+retext-equality.min.js
+retext-simplify.js
+retext-simplify.min.js

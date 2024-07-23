@@ -1,0 +1,20 @@
+{
+  "name": "retext-shopify",
+  "version": "0.1.0",
+  "description": "Check phrases for simpler alternatives",
+  "license": "MIT",
+  "repository": "Shopify/retext-shopify",
+  "dependencies": {
+    "sindresorhus/array-differ": "^1.0.0",
+    "wooorm/nlcst-search": "^1.0.0",
+    "wooorm/nlcst-to-string": "^1.1.0",
+    "ljharb/object-keys": "^1.0.9",
+    "wooorm/quotation": "^1.0.0"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "json": [
+    "data/index.json"
+  ]
+}
