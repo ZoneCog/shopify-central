@@ -1,0 +1,145 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: <%=ENV['TABLEAU_URL']%>/api/2.0/sites/<%=ENV['TABLEAU_DEFAULT_SITE']%>/groups
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - Faraday v0.9.1
+      X-Tableau-Auth:
+      - f4z3TsBciBOmOopD1IGh058gxnvoGLmw
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Content-Type:
+      - application/xml;charset=utf-8
+      Date:
+      - Mon, 05 Oct 2015 17:48:49 GMT
+      Etag:
+      - '"e4f1f38e622a4f61225c73ea9256721c-gzip"'
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      P3p:
+      - CP="NON"
+      Pragma:
+      - no-cache
+      Server:
+      - Tableau
+      Vary:
+      - "*,Accept-Encoding"
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Runtime:
+      - '0.047000'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '418'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <tsResponse xmlns="http://tableausoftware.com/api" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tableausoftware.com/api http://tableausoftware.com/api/ts-api-2.0.xsd">
+          <pagination pageNumber="1" pageSize="100" totalAvailable="4"/>
+          <groups>
+            <group id="97b96d2e-d7ce-11e3-b3a9-07e2874bf6a7" name="All Users">
+              <domain name="local"/>
+            </group>
+            <group id="7623c27b-c39a-4c0a-ad54-5a499d6b72be" name="Consumer - Internal">
+              <domain name="local"/>
+            </group>
+            <group id="e7266c01-48f2-4c03-8d7a-7e497901a6c0" name="Consumer - External">
+              <domain name="local"/>
+            </group>
+            <group id="f5aae762-f889-4977-8aa1-137d50243127" name="Publisher">
+              <domain name="local"/>
+            </group>
+          </groups>
+        </tsResponse>
+    http_version:
+  recorded_at: Mon, 05 Oct 2015 17:48:48 GMT
+- request:
+    method: put
+    uri: <%=ENV['TABLEAU_URL']%>/api/2.0/sites/<%=ENV['TABLEAU_DEFAULT_SITE']%>/projects/dfcab774-fc18-45ce-b534-05587c283801/permissions
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <tsRequest>
+          <permissions>
+            <project id="dfcab774-fc18-45ce-b534-05587c283801"/>
+            <granteeCapabilities>
+              <group id="97b96d2e-d7ce-11e3-b3a9-07e2874bf6a7"/>
+              <capabilities>
+                <capability name="AddComment" mode="Allow"/>
+                <capability name="Connect" mode="Allow"/>
+                <capability name="ExportData" mode="Allow"/>
+                <capability name="ExportImage" mode="Allow"/>
+                <capability name="Filter" mode="Allow"/>
+                <capability name="Read" mode="Allow"/>
+                <capability name="ViewComments" mode="Allow"/>
+              </capabilities>
+            </granteeCapabilities>
+          </permissions>
+        </tsRequest>
+    headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - Faraday v0.9.1
+      X-Tableau-Auth:
+      - f4z3TsBciBOmOopD1IGh058gxnvoGLmw
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/xml;charset=utf-8
+      Date:
+      - Mon, 05 Oct 2015 17:48:49 GMT
+      P3p:
+      - CP="NON"
+      Server:
+      - Tableau
+      Vary:
+      - Accept-Encoding
+      X-Ua-Compatible:
+      - IE=Edge
+      Content-Length:
+      - '470'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: <?xml version='1.0' encoding='UTF-8'?><tsResponse xmlns="http://tableausoftware.com/api"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tableausoftware.com/api
+        http://tableausoftware.com/api/ts-api-2.0.xsd"><permissions><project id="dfcab774-fc18-45ce-b534-05587c283801"
+        name="foobartest"><owner id="cf68994e-29c8-4f41-bf6c-398e3348131e" /></project><granteeCapabilities><group
+        id="97b96d2e-d7ce-11e3-b3a9-07e2874bf6a7" /><capabilities><capability name="ViewComments"
+        mode="Allow" /><capability name="Connect" mode="Allow" /><capability name="Read"
+        mode="Allow" /><capability name="AddComment" mode="Allow" /><capability name="ExportData"
+        mode="Allow" /><capability name="Filter" mode="Allow" /><capability name="ExportImage"
+        mode="Allow" /></capabilities></granteeCapabilities></permissions></tsResponse>
+    http_version:
+  recorded_at: Mon, 05 Oct 2015 17:48:48 GMT
+recorded_with: VCR 2.9.3

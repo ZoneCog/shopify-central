@@ -1,0 +1,454 @@
+<?xml version='1.0' encoding='utf-8' ?>
+    <datasource inline='true' name='All (Around_the_Sound.xlsx)' version='9.0'>
+      <connection auto-extract='yes' class='excel' driver='Ace12' filename='/var/folders/xy/1t835w8x53x25n_fj3601br80000gn/T/tableau-temp/1288839552/C:/Documents and Settings/efields/Perforce/beaker_content_efields/Seattle_Bubble/Around_the_Sound.xlsx' header='yes' imex='1'>
+        <relation join='left' type='join'>
+          <clause type='join'>
+            <expression op='='>
+              <expression op='[All$].[County]'>
+              </expression>
+              <expression op='[&apos;Lat-Long$&apos;].[County]'>
+              </expression>
+            </expression>
+          </clause>
+          <relation name='All$' table='[All$]' type='table' />
+          <relation name='&apos;Lat-Long$&apos;' table='[&apos;Lat-Long$&apos;]' type='table' />
+        </relation>
+        <cols>
+          <map key='[&apos;Lat-Long$&apos;_County]' value='[&apos;Lat-Long$&apos;].[County]' />
+          <map key='[Closed]' value='[All$].[Closed]' />
+          <map key='[County]' value='[All$].[County]' />
+          <map key='[Latitude]' value='[&apos;Lat-Long$&apos;].[Latitude]' />
+          <map key='[Listings]' value='[All$].[Listings]' />
+          <map key='[Longitude]' value='[&apos;Lat-Long$&apos;].[Longitude]' />
+          <map key='[MOS]' value='[All$].[MOS]' />
+          <map key='[Main city]' value='[&apos;Lat-Long$&apos;].[Main city]' />
+          <map key='[Month]' value='[All$].[Month]' />
+          <map key='[Pending]' value='[All$].[Pending]' />
+          <map key='[Price]' value='[All$].[Price]' />
+        </cols>
+      </connection>
+      <aliases enabled='yes' />
+      <column datatype='string' hidden='true' name='[&apos;Lat-Long$&apos;_County]' role='dimension' semantic-role='[County].[Name]' type='nominal'>
+      </column>
+      <column datatype='string' name='[:Measure Names]' role='dimension' type='nominal'>
+        <aliases>
+          <alias key='&quot;[All (Around_the_Sound.xlsx)].[avg:Price:qk]&quot;' value='Median Price' />
+          <alias key='&quot;[All (Around_the_Sound.xlsx)].[sum:Closed:qk]&quot;' value='Closed' />
+          <alias key='&quot;[All (Around_the_Sound.xlsx)].[sum:Listings:qk]&quot;' value='Listings' />
+          <alias key='&quot;[All (Around_the_Sound.xlsx)].[sum:MOS:qk]&quot;' value='MOS' />
+          <alias key='&quot;[All (Around_the_Sound.xlsx)].[sum:Pending:qk]&quot;' value='Pending' />
+          <alias key='&quot;[All (Around_the_Sound.xlsx)].[sum:Price:qk]&quot;' value='Price' />
+          <alias key='&quot;[All (Around_the_Sound.xlsx)].[usr:Calculation_5460319163001626:qk]&quot;' value='Inventory' />
+        </aliases>
+      </column>
+      <column caption='Inventory' datatype='real' name='[Calculation_9240315132658088]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='[Listings]-[Closed]-[Pending]' scope-isolation='false' />
+      </column>
+      <column datatype='real' name='[Closed Sales]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([Closed])' />
+      </column>
+      <column datatype='real' name='[Closed]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='string' name='[County]' role='dimension' semantic-role='[County].[Name]' type='nominal'>
+      </column>
+      <column aggregation='Avg' datatype='real' name='[Latitude]' role='measure' semantic-role='[Geographical].[Latitude]' type='quantitative'>
+      </column>
+      <column datatype='real' name='[Listed Homes]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([Listings])' />
+      </column>
+      <column datatype='real' name='[Listings]' role='measure' type='quantitative'>
+      </column>
+      <column aggregation='Avg' datatype='real' name='[Longitude]' role='measure' semantic-role='[Geographical].[Longitude]' type='quantitative'>
+      </column>
+      <column datatype='real' default-format='n#,##0.0;-#,##0.0' hidden='true' name='[MOS]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='string' hidden='true' name='[Main city]' role='dimension' type='nominal'>
+      </column>
+      <column datatype='datetime' default-format='*mmmm, yyyy' name='[Month]' role='dimension' type='ordinal'>
+      </column>
+      <column datatype='real' default-format='n#,##0.0;-#,##0.0' name='[Months of Supply]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='sum([Listings])/sum([Pending])' />
+      </column>
+      <column datatype='integer' hidden='true' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column datatype='string' default-format='c&quot;$&quot;#,##0;(&quot;$&quot;#,##0)' hidden='true' name='[Peak Price]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='if datediff(&apos;month&apos;,[Month],today())=1 then &quot;Prior Month&quot; else &quot;Peak&quot; end' />
+      </column>
+      <column datatype='real' name='[Pending Sales]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([Pending])' />
+      </column>
+      <column datatype='real' name='[Pending]' role='measure' type='quantitative'>
+      </column>
+      <column caption='Median Price' datatype='real' default-format='c&quot;$&quot;#,##0;(&quot;$&quot;#,##0)' name='[Price]' role='measure' type='quantitative'>
+      </column>
+      <column datatype='real' hidden='true' name='[Total Median Price]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([Price])' />
+      </column>
+      <column auto-hidden='true' datatype='integer' hidden='true' name='[fk:&apos;Lat-Long$&apos;_County:0]' role='dimension' type='ordinal' user:ExtractForeignKey='[&apos;Lat-Long$&apos;_County]'>
+      </column>
+      <column auto-hidden='true' datatype='integer' hidden='true' name='[fk:County:0]' role='dimension' type='ordinal' user:ExtractForeignKey='[County]'>
+      </column>
+      <column auto-hidden='true' datatype='integer' hidden='true' name='[fk:Main city:0]' role='dimension' type='ordinal' user:ExtractForeignKey='[Main city]'>
+      </column>
+      <column auto-hidden='true' datatype='integer' hidden='true' name='[fk:Month:0]' role='dimension' type='ordinal' user:ExtractForeignKey='[Month]'>
+      </column>
+      <column auto-hidden='true' datatype='integer' hidden='true' name='[pk:&apos;Lat-Long$&apos;_County:0]' role='dimension' type='ordinal' user:ExtractPrimaryKey='[&apos;Lat-Long$&apos;_County]'>
+      </column>
+      <column auto-hidden='true' datatype='integer' hidden='true' name='[pk:County:0]' role='dimension' type='ordinal' user:ExtractPrimaryKey='[County]'>
+      </column>
+      <column auto-hidden='true' datatype='integer' hidden='true' name='[pk:Main city:0]' role='dimension' type='ordinal' user:ExtractPrimaryKey='[Main city]'>
+      </column>
+      <column auto-hidden='true' datatype='integer' hidden='true' name='[pk:Month:0]' role='dimension' type='ordinal' user:ExtractPrimaryKey='[Month]'>
+      </column>
+      <column-instance column='[Price]' derivation='Avg' name='[avg:Price:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Number of Records]' derivation='Count' name='[cnt:Number of Records:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[County]' derivation='None' name='[none:County:nk]' pivot='key' type='nominal' />
+      <column-instance column='[Peak Price]' derivation='None' name='[none:Peak Price:nk]' pivot='key' type='nominal' />
+      <column-instance column='[Closed]' derivation='Sum' name='[sum:Closed:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Listings]' derivation='Sum' name='[sum:Listings:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[MOS]' derivation='Sum' name='[sum:MOS:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Pending]' derivation='Sum' name='[sum:Pending:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Price]' derivation='Sum' name='[sum:Price:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Listed Homes]' derivation='User' name='[usr:Listed Homes:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Peak Price]' derivation='User' name='[usr:Peak Price:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Pending Sales]' derivation='User' name='[usr:Pending Sales:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[Month]' derivation='Year' name='[yr:Month:ok]' pivot='key' type='ordinal' />
+      <extract count='-1' enabled='true' units='records'>
+        <connection class='dataengine' dbname='/Users/orenmazor/Desktop/TestWorkbook.twb Files/Data/TableauTemp/1ucpgau0k0epnd1bmkyy21vn3jb0.tmp' schema='Extract' tablename='Extract' update-time='12/3/2010 1:32:01 PM' updated-database='C:\DOCUME~1\rperez\LOCALS~1\Temp\37C.tmp\Data\Extracts\ALL _AROUND_THE_SOUND_XLSX_.TDE'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <calculations>
+            <calculation column='[Calculation_9240315132658088]' formula='[Listings]-[Closed]-[Pending]' />
+          </calculations>
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>Closed</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Closed]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Closed</remote-alias>
+              <ordinal>0</ordinal>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>573</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Min' datatype='real'>34.0</statistic>
+                <statistic aggregation='Max' datatype='real'>3345.0</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (comparable)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (compression)'>&quot;array&quot;</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (distinct)'>true</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>8</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (storagewidth)'>2</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;double&quot;</attribute>
+              </attributes>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>County</remote-name>
+              <remote-type>130</remote-type>
+              <local-name>[County]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>County</remote-alias>
+              <ordinal>1</ordinal>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>8</approx-count>
+              <scale>2</scale>
+              <width>9</width>
+              <contains-null>false</contains-null>
+              <collation flag='1' name='LEN_RUS_S2' />
+              <statistics>
+                <statistic aggregation='Min' datatype='string'>&quot;Island&quot;</statistic>
+                <statistic aggregation='Max' datatype='string'>&quot;Whatcom&quot;</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='string' name='DebugRemoteCollation'>&quot;en_US_CI&quot;</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (comparable)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (compression)'>&quot;heap&quot;</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (distinct)'>true</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>18</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (sort-position)'>2</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (sort-sense)'>&quot;asc&quot;</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (storagewidth)'>1</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;wstr&quot;</attribute>
+              </attributes>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Latitude</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Latitude]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Latitude</remote-alias>
+              <ordinal>2</ordinal>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>8</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Min' datatype='real'>47.049999999999997</statistic>
+                <statistic aggregation='Max' datatype='real'>48.623323249999999</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (comparable)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (compression)'>&quot;array&quot;</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (distinct)'>true</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>8</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (sort-position)'>3</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (sort-sense)'>&quot;asc&quot;</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (storagewidth)'>1</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;double&quot;</attribute>
+              </attributes>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Listings</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Listings]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Listings</remote-alias>
+              <ordinal>3</ordinal>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>738</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Min' datatype='real'>338.0</statistic>
+                <statistic aggregation='Max' datatype='real'>12310.0</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>8</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;double&quot;</attribute>
+              </attributes>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Longitude</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Longitude]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Longitude</remote-alias>
+              <ordinal>4</ordinal>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>7</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Min' datatype='real'>-122.837870877</statistic>
+                <statistic aggregation='Max' datatype='real'>-122.07888247</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (comparable)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (compression)'>&quot;array&quot;</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (distinct)'>true</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>8</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (sort-position)'>1</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (sort-sense)'>&quot;asc&quot;</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (storagewidth)'>1</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;double&quot;</attribute>
+              </attributes>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Month</remote-name>
+              <remote-type>135</remote-type>
+              <local-name>[Month]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Month</remote-alias>
+              <ordinal>5</ordinal>
+              <local-type>datetime</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>112</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Min' datatype='datetime'>#2000-01-01 00:00:00#</statistic>
+                <statistic aggregation='Max' datatype='datetime'>#2009-04-01 00:00:00#</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (comparable)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (compression)'>&quot;array&quot;</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (distinct)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (ordered)'>&quot;asc&quot;</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>8</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (sort-position)'>0</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (sort-sense)'>&quot;asc&quot;</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (storagewidth)'>1</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;datetime&quot;</attribute>
+              </attributes>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Pending</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Pending]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Pending</remote-alias>
+              <ordinal>6</ordinal>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>581</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Min' datatype='real'>47.0</statistic>
+                <statistic aggregation='Max' datatype='real'>3405.0</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (comparable)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (compression)'>&quot;array&quot;</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (distinct)'>true</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>8</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (storagewidth)'>2</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;double&quot;</attribute>
+              </attributes>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Price</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[Price]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Price</remote-alias>
+              <ordinal>7</ordinal>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>573</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Min' datatype='real'>131250.0</statistic>
+                <statistic aggregation='Max' datatype='real'>481000.0</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (comparable)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteMetadata (compression)'>&quot;array&quot;</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (distinct)'>true</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>8</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (storagewidth)'>2</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;double&quot;</attribute>
+              </attributes>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Calculation_9240315132658088</remote-name>
+              <remote-type>4</remote-type>
+              <local-name>[Calculation_9240315132658088]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Calculation_9240315132658088</remote-alias>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>711</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Min' datatype='real'>-1019.0</statistic>
+                <statistic aggregation='Max' datatype='real'>9011.0</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>4</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;float&quot;</attribute>
+              </attributes>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' dim-percentage='0.5' measure-ordering='alphabetic' measure-percentage='0.4' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:Peak Price:nk]' type='palette'>
+            <map to='#1f77b4'>
+              <bucket>&quot;Peak&quot;</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>&quot;Prior Month&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[yr:Month:ok]' type='palette'>
+            <map to='#1f77b4'>
+              <bucket>2000</bucket>
+            </map>
+            <map to='#1f77b4'>
+              <bucket>2008</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>2002</bucket>
+            </map>
+            <map to='#7f7f7f'>
+              <bucket>2007</bucket>
+            </map>
+            <map to='#8c564b'>
+              <bucket>2005</bucket>
+            </map>
+            <map to='#9467bd'>
+              <bucket>2004</bucket>
+            </map>
+            <map to='#d62728'>
+              <bucket>2003</bucket>
+            </map>
+            <map to='#e377c2'>
+              <bucket>2006</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>2001</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>2009</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#1f77b4'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[avg:Price:qk]&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[sum:MOS:qk]&quot;</bucket>
+            </map>
+            <map to='#616161'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[sum:Listings:qk]&quot;</bucket>
+            </map>
+            <map to='#7f7f7f'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[usr:Pending Sales:qk]&quot;</bucket>
+            </map>
+            <map to='#8f8f8f'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[sum:Pending:qk]&quot;</bucket>
+            </map>
+            <map to='#995688'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[usr:Calculation_5460319163001626:qk]&quot;</bucket>
+            </map>
+            <map to='#c3c3c3'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[sum:Closed:qk]&quot;</bucket>
+            </map>
+            <map to='#d62728'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[cnt:Number of Records:qk]&quot;</bucket>
+            </map>
+            <map to='#e377c2'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[usr:Listed Homes:qk]&quot;</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>&quot;[All (Around_the_Sound.xlsx)].[usr:Peak Price:qk]&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:County:nk]' type='palette'>
+            <map to='#006ba4'>
+              <bucket>&quot;Kitsap&quot;</bucket>
+            </map>
+            <map to='#29a03c'>
+              <bucket>&quot;Island&quot;</bucket>
+            </map>
+            <map to='#5f9ed1'>
+              <bucket>&quot;Thurston&quot;</bucket>
+            </map>
+            <map to='#83d579'>
+              <bucket>&quot;Whatcom&quot;</bucket>
+            </map>
+            <map to='#a2c8ec'>
+              <bucket>&quot;Skagit&quot;</bucket>
+            </map>
+            <map to='#c85200'>
+              <bucket>&quot;King&quot;</bucket>
+            </map>
+            <map to='#ff800e'>
+              <bucket>&quot;Pierce&quot;</bucket>
+            </map>
+            <map to='#ffbc79'>
+              <bucket>&quot;Snohomish&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;UNITED STATES&quot;' />
+        <semantic-value key='[State].[Name]' value='&quot;WASHINGTON&quot;' />
+      </semantic-values>
+    </datasource>

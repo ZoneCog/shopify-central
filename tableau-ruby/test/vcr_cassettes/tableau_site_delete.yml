@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: delete
+    uri: <%=ENV['TABLEAU_URL']%>/api/2.0/sites/6608f694-fc4e-42a3-a478-5178296dec5d
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - Faraday v0.9.2
+      X-Tableau-Auth:
+      - b76cf89c9c1e4616fc388d95601f3793
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - text/html;charset=utf-8
+      Date:
+      - Wed, 30 Mar 2016 20:03:29 GMT
+      P3p:
+      - CP="NON"
+      Server:
+      - Tableau
+      X-Runtime:
+      - '0.047000'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '406'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 30 Mar 2016 20:03:33 GMT
+recorded_with: VCR 2.9.3

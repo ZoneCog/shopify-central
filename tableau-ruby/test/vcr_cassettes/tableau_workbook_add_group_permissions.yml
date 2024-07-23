@@ -1,0 +1,70 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: <%=ENV['TABLEAU_URL']%>/api/2.0/sites/<%=ENV['TABLEAU_DEFAULT_SITE']%>/workbooks/ab328f38-ff41-4707-8999-b91729784d02/permissions
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <tsRequest>
+          <permissions>
+            <workbook id="ab328f38-ff41-4707-8999-b91729784d02"/>
+            <granteeCapabilities>
+              <group id='97b96d2e-d7ce-11e3-b3a9-07e2874bf6a7'/>
+              <capabilities>
+                <capability name="AddComment" mode="Allow"/>
+                <capability name="ExportData" mode="Allow"/>
+                <capability name="ExportImage" mode="Allow"/>
+                <capability name="Filter" mode="Allow"/>
+                <capability name="Read" mode="Allow"/>
+                <capability name="ViewComments" mode="Allow"/>
+              </capabilities>
+            </granteeCapabilities>
+          </permissions>
+        </tsRequest>
+    headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - Faraday v0.9.1
+      X-Tableau-Auth:
+      - LwmOW3KdumF8xJrLL78HjbT5t3BMraQy
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/xml;charset=utf-8
+      Date:
+      - Wed, 30 Sep 2015 18:44:55 GMT
+      P3p:
+      - CP="NON"
+      Server:
+      - Tableau
+      Vary:
+      - Accept-Encoding
+      X-Ua-Compatible:
+      - IE=Edge
+      Content-Length:
+      - '410'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: <?xml version='1.0' encoding='UTF-8'?><tsResponse xmlns="http://tableausoftware.com/api"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tableausoftware.com/api
+        http://tableausoftware.com/api/ts-api-2.0.xsd"><permissions><workbook id="ab328f38-ff41-4707-8999-b91729784d02"
+        name="TestWorkbook"><owner id="cf68994e-29c8-4f41-bf6c-398e3348131e" /></workbook><granteeCapabilities><user
+        id="0540525d-b635-4a1a-825e-acb6a1767175" /><capabilities><capability name="Read"
+        mode="Allow" /><capability name="ExportData" mode="Allow" /><capability name="AddComment"
+        mode="Allow" /><capability name="Filter" mode="Allow" /><capability name="ExportImage"
+        mode="Allow" /><capability name="ViewComments" mode="Allow" /></capabilities></granteeCapabilities></permissions></tsResponse>
+    http_version:
+  recorded_at: Wed, 30 Sep 2015 18:44:53 GMT
+recorded_with: VCR 2.9.3

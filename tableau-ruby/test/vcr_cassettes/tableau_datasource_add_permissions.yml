@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: <%=ENV['TABLEAU_URL']%>/api/2.0/sites/<%=ENV['TABLEAU_DEFAULT_SITE']%>/datasources/aadedf2b-bf2b-4ea8-8198-cc6ac0e79b21/permissions
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <tsRequest>
+          <permissions>
+            <datasource id="aadedf2b-bf2b-4ea8-8198-cc6ac0e79b21"/>
+            <granteeCapabilities>
+              <user id="0540525d-b635-4a1a-825e-acb6a1767175"/>
+              <capabilities>
+                <capability name="Connect" mode="Allow"/>
+                <capability name="Read" mode="Allow"/>
+              </capabilities>
+            </granteeCapabilities>
+          </permissions>
+        </tsRequest>
+    headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - Faraday v0.9.1
+      X-Tableau-Auth:
+      - LwmOW3KdumF8xJrLL78HjbT5t3BMraQy
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/xml;charset=utf-8
+      Date:
+      - Wed, 30 Sep 2015 18:34:17 GMT
+      P3p:
+      - CP="NON"
+      Server:
+      - Tableau
+      Vary:
+      - Accept-Encoding
+      X-Ua-Compatible:
+      - IE=Edge
+      Content-Length:
+      - '377'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: <?xml version='1.0' encoding='UTF-8'?><tsResponse xmlns="http://tableausoftware.com/api"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tableausoftware.com/api
+        http://tableausoftware.com/api/ts-api-2.0.xsd"><permissions><datasource id="aadedf2b-bf2b-4ea8-8198-cc6ac0e79b21"
+        name="Kit_Test_Datasource"><owner id="cf68994e-29c8-4f41-bf6c-398e3348131e"
+        /></datasource><granteeCapabilities><user id="0540525d-b635-4a1a-825e-acb6a1767175"
+        /><capabilities><capability name="Connect" mode="Allow" /><capability name="Read"
+        mode="Allow" /></capabilities></granteeCapabilities></permissions></tsResponse>
+    http_version:
+  recorded_at: Wed, 30 Sep 2015 18:34:15 GMT
+recorded_with: VCR 2.9.3

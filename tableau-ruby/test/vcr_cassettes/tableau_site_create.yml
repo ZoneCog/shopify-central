@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: <%=ENV['TABLEAU_URL']%>/api/2.0/sites
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0"?>
+        <tsRequest>
+          <site name="API_TEST_SITE" contentUrl="nuclearwar44"/>
+        </tsRequest>
+    headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - Faraday v0.9.1
+      X-Tableau-Auth:
+      - f3cd1af458afaf6be8c29f9477d835aa
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Content-Type:
+      - application/xml;charset=utf-8
+      Date:
+      - Thu, 03 Sep 2015 17:16:15 GMT
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      Location:
+      - "/api/2.0/sites/6608f694-fc4e-42a3-a478-5178296dec5d"
+      P3p:
+      - CP="NON"
+      Pragma:
+      - no-cache
+      Server:
+      - Tableau
+      Vary:
+      - "*"
+      X-Runtime:
+      - '0.375000'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '437'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <tsResponse xmlns="http://tableausoftware.com/api" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tableausoftware.com/api http://tableausoftware.com/api/ts-api-2.0.xsd">
+          <site id="6608f694-fc4e-42a3-a478-5178296dec5d" name="API_TEST_SITE" contentUrl="nuclearwar44" adminMode="ContentAndUsers" disableSubscriptions="false" state="Active">
+          </site>
+        </tsResponse>
+    http_version: 
+  recorded_at: Thu, 03 Sep 2015 17:16:13 GMT
+recorded_with: VCR 2.9.3

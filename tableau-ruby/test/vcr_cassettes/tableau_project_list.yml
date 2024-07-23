@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: <%=ENV['TABLEAU_URL']%>/api/2.0/sites/<%=ENV['TABLEAU_DEFAULT_SITE']%>/projects
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/xml
+      User-Agent:
+      - Faraday v0.9.1
+      X-Tableau-Auth:
+      - b76cf89c9c1e4616fc388d95601f3793
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Content-Type:
+      - application/xml;charset=utf-8
+      Date:
+      - Wed, 02 Sep 2015 16:34:22 GMT
+      Etag:
+      - '"c5043018f89f69067bc38ad8ad2f828c-gzip"'
+      Expires:
+      - Thu, 01 Jan 1970 00:00:00 GMT
+      P3p:
+      - CP="NON"
+      Pragma:
+      - no-cache
+      Server:
+      - Tableau
+      Vary:
+      - "*,Accept-Encoding"
+      X-Runtime:
+      - '0.047000'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '612'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <tsResponse xmlns="http://tableausoftware.com/api" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://tableausoftware.com/api http://tableausoftware.com/api/ts-api-2.0.xsd">
+          <pagination pageNumber="1" pageSize="100" totalAvailable="7"/>
+          <projects>
+            <project id="972bcf8c-d7ce-11e3-ac00-0fa50cfedda9" name="default" description="The default project that was automatically created by Tableau."/>
+            <project id="c990505c-6d4e-43ab-81eb-2dc3f45db03d" name="APITEST" description="1111"/>
+            <project id="0b3b7890-3b4c-4be2-98b4-3316f0f0dc04" name="fdsfsdfdsf" description=""/>
+            <project id="dfcab774-fc18-45ce-b534-05587c283801" name="foobartest" description=""/>
+          </projects>
+        </tsResponse>
+    http_version:
+  recorded_at: Wed, 02 Sep 2015 16:34:21 GMT
+recorded_with: VCR 2.9.3
