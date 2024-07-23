@@ -1,0 +1,174 @@
+# ecfg(1) -- manage application secrets via encrypted config
+
+## SYNOPSIS
+
+`ecfg` [`-k`|`--keydir` *dir*] `command` [`args`]
+
+## DESCRIPTION
+
+`ecfg` is a utility for managing a collection of secrets, typically to be
+committed to source control. The secrets are encrypted using public key,
+elliptic curve cryptography. Secrets are collected in a JSON, YAML, or TOML
+file, in which all the string values are encrypted. Public keys are embedded in
+the file, and the decrypter looks up the corresponding private key from its
+local filesystem or process environment.
+
+See ecfg(5) for more information on the `ecfg` file format, and read on for
+a workflow example.
+
+## COMMANDS
+
+`ecfg help` [*command*]
+
+:   Show (this) help for `ecfg` in general, or for a specific command
+
+`ecfg encrypt` : ecfg-encrypt(1)
+
+:   Encrypt an `ecfg` file (alias: `ecfg e`)
+
+`ecfg decrypt` : ecfg-decrypt(1)
+
+:   Decrypt an `ecfg` file (alias: `ecfg d`)
+
+`ecfg keygen` : ecfg-keygen(1)
+
+:   Generate an `ecfg` keypair (alias: `ecfg g`)
+
+## GLOBAL OPTIONS
+
+`-k`, `--keydir`=*<dir>*
+
+:   Use the provided directory instead of the default key paths (decribed in
+    the KEY MANAGEMENT section)
+
+## ENVIRONMENT
+
+`ECFG_KEYDIR`
+
+:   Use a custom directory instead of the default key lookup path decribed in
+    the KEY MANAGEMENT section.
+
+`ECFG_PRIVATE_KEY`
+
+:   When decrypting, instead of looking up the matching private key for the
+    public key given in the input file, assume the file was encrypted to the
+    provided private key. This option is useful when running in environments
+    such as heroku where obtaining keys from disk is impractical.
+
+## KEY MANAGEMENT
+
+`ecfg` keypairs are stored as individual files in a key directory. The file
+name is the public key and the file content is the private key. `ecfg` has a
+default lookup path for key directories:
+
+* `$XDG_CONFIG_HOME/ecfg/keys` (if `$XDG_CONFIG_HOME` is set and running as non-root user)
+* `$HOME/.ecfg/keys` (if running as non-root user)
+* `/etc/ecfg/keys`
+* `/opt/ejson/keys` (for backwards-compatibility with `ejson`)
+
+When passing `-k` or `--keydir` to `ecfg`, or when invoked with `ECFG_KEYDIR`
+in the environment, this lookup path is completely ignored and the key is
+instead retrieved from or stored to the provided path.
+
+If `ECFG_PRIVATE_KEY` is set for decryption, the key directories aren't even
+touched; instead, we just assume the provided private key is the correct one,
+failing if it's not.
+
+## WORKFLOW
+
+### 1: Create the Keydir
+
+By default, `ecfg` looks for keys in `/opt/ecfg/keys`. You can change this by
+setting `ECFG_KEYDIR` or passing the `-keydir` option.
+
+```
+$ mkdir -p /opt/ecfg/keys
+```
+
+### 2: Generate a keypair
+
+When called with `-w`, `ecfg keygen` will write the keypair into the `keydir`
+and print the public key. Without `-w`, it will print both keys to stdout. This
+is useful if you have to distribute the key to multiple servers via
+configuration management, etc.
+
+```
+$ ecfg keygen
+Public Key:
+63ccf05a9492e68e12eeb1c705888aebdcc0080af7e594fc402beb24cce9d14f
+Private Key:
+75b80b4a693156eb435f4ed2fe397e583f461f09fd99ec2bd1bdef0a56cf6e64
+
+$ ./ecfg keygen -w
+53393332c6c7c474af603c078f5696c8fe16677a09a711bba299a6c1c1676a59
+$ cat /opt/ecfg/keys/5339*
+888a4291bef9135729357b8c70e5a62b0bbe104a679d829cdbe56d46a4481aaf
+```
+
+### 3: Create an ecfg file
+
+The format is described in more detail in ecfg(5). For now, create a file that
+looks something like this. Fill in the `<key>` with whatever you got back in
+step 2.
+
+Create this file as `test.ecfg.json`:
+
+```
+{
+  "_public_key": "<key>",
+  "database_password": "1234password"
+}
+```
+
+You can also use YAML or TOML if you'd prefer, as long as there's a
+`_public_key` element at the top-level.
+
+### 4: Encrypt the file
+
+Running `ecfg encrypt test.ecfg.json` will encrypt any new plaintext keys in
+the file, and leave any existing encrypted keys untouched:
+
+```
+{
+  "_public_key": "63ccf05a9492e68e12eeb1c705888aebdcc0080af7e594fc402beb24cce9d14f",
+  "database_password": "EJ[1:WGj2t4znULHT1IRveMEdvvNXqZzNBNMsJ5iZVy6Dvxs=:kA6ekF8ViYR5ZLeSmMXWsdLfWr7wn9qS:fcHQtdt6nqcNOXa97/M278RX6w==]"
+}
+```
+
+Try adding another plaintext secret to the file and run `ecfg encrypt
+test.ecfg.json` again. The `database_password` field will not be changed, but the
+new secret will be encrypted.
+
+### 5: Decrypt the file
+
+To decrypt the file, you must have a file present in the `keydir` whose name is
+the 64-byte hex-encoded public key exactly as embedded in the ecfg(5) document.
+The contents of that file must be the similarly-encoded private key. If you used
+`ecfg keygen -w`, you've already got this covered.
+
+Unlike ecfg-encrypt(1), which overwrites the specified files, ecfg-decrypt(1)
+only takes one file parameter, and prints the output to `stdout`:
+
+```
+$ ecfg decrypt foo.ecfg.json
+{
+  "_public_key": "63ccf05a9492e68e12eeb1c705888aebdcc0080af7e594fc402beb24cce9d14f",
+  "database_password": "1234password"
+}
+```
+TODO
+
+## BUGS
+
+Report security issues to <burke.libbey@shopify.com> and
+<security@shopify.com>.
+
+File non-security-related bugs at <https://github.com/Shopify/ecfg>.
+
+## COPYRIGHT
+
+`ecfg` is copyright (C) 2016 Shopify under MIT license.
+
+## SEE ALSO
+
+ecfg-encrypt(1), ecfg-decrypt(1), ecfg-keygen(1), ecfg(5)

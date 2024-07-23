@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>ecfg(1) - manage application secrets via encrypted config</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+  <style type='text/css' media='all'>
+  /* style: toc */
+  .man-navigation {display:block !important;position:fixed;top:0;left:113ex;height:100%;width:100%;padding:48px 0 0 0;border-left:1px solid #dbdbdb;background:#eee}
+  .man-navigation a,.man-navigation a:hover,.man-navigation a:link,.man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 30px;color:#999;text-decoration:none}
+  .man-navigation a:hover {color:#111;text-decoration:underline}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#COMMANDS">COMMANDS</a>
+    <a href="#GLOBAL-OPTIONS">GLOBAL OPTIONS</a>
+    <a href="#ENVIRONMENT">ENVIRONMENT</a>
+    <a href="#KEY-MANAGEMENT">KEY MANAGEMENT</a>
+    <a href="#WORKFLOW">WORKFLOW</a>
+    <a href="#BUGS">BUGS</a>
+    <a href="#COPYRIGHT">COPYRIGHT</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>ecfg(1)</li>
+    <li class='tc'>Version 0.3.0</li>
+    <li class='tr'>ecfg(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>ecfg</code> - <span class="man-whatis">manage application secrets via encrypted config</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>ecfg</code> [<code>-k</code>|<code>--keydir</code> <em>dir</em>] <code>command</code> [<code>args</code>]</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p><code>ecfg</code> is a utility for managing a collection of secrets, typically to be
+committed to source control. The secrets are encrypted using public key,
+elliptic curve cryptography. Secrets are collected in a JSON, YAML, or TOML
+file, in which all the string values are encrypted. Public keys are embedded in
+the file, and the decrypter looks up the corresponding private key from its
+local filesystem or process environment.</p>
+
+<p>See <a class="man-ref" href="ecfg.5.html">ecfg<span class="s">(5)</span></a> for more information on the <code>ecfg</code> file format, and read on for
+a workflow example.</p>
+
+<h2 id="COMMANDS">COMMANDS</h2>
+
+<dl>
+<dt><code>ecfg help</code> [<em>command</em>]</dt>
+<dd><p>  Show (this) help for <code>ecfg</code> in general, or for a specific command</p></dd>
+<dt><code>ecfg encrypt</code> : <a class="man-ref" href="ecfg-encrypt.1.html">ecfg-encrypt<span class="s">(1)</span></a></dt>
+<dd><p>  Encrypt an <code>ecfg</code> file (alias: <code>ecfg e</code>)</p></dd>
+<dt><code>ecfg decrypt</code> : <a class="man-ref" href="ecfg-decrypt.1.html">ecfg-decrypt<span class="s">(1)</span></a></dt>
+<dd><p>  Decrypt an <code>ecfg</code> file (alias: <code>ecfg d</code>)</p></dd>
+<dt><code>ecfg keygen</code> : <a class="man-ref" href="ecfg-keygen.1.html">ecfg-keygen<span class="s">(1)</span></a></dt>
+<dd><p>  Generate an <code>ecfg</code> keypair (alias: <code>ecfg g</code>)</p></dd>
+</dl>
+
+<h2 id="GLOBAL-OPTIONS">GLOBAL OPTIONS</h2>
+
+<dl>
+<dt><code>-k</code>, <code>--keydir</code>=<em><dir /></em></dt>
+<dd><p>  Use the provided directory instead of the default key paths (decribed in
+  the KEY MANAGEMENT section)</p></dd>
+</dl>
+
+<h2 id="ENVIRONMENT">ENVIRONMENT</h2>
+
+<dl>
+<dt><code>ECFG_KEYDIR</code></dt>
+<dd><p>  Use a custom directory instead of the default key lookup path decribed in
+  the KEY MANAGEMENT section.</p></dd>
+<dt><code>ECFG_PRIVATE_KEY</code></dt>
+<dd><p>  When decrypting, instead of looking up the matching private key for the
+  public key given in the input file, assume the file was encrypted to the
+  provided private key. This option is useful when running in environments
+  such as heroku where obtaining keys from disk is impractical.</p></dd>
+</dl>
+
+<h2 id="KEY-MANAGEMENT">KEY MANAGEMENT</h2>
+
+<p><code>ecfg</code> keypairs are stored as individual files in a key directory. The file
+name is the public key and the file content is the private key. <code>ecfg</code> has a
+default lookup path for key directories:</p>
+
+<ul>
+<li><code>$XDG_CONFIG_HOME/ecfg/keys</code> (if <code>$XDG_CONFIG_HOME</code> is set and running as non-root user)</li>
+<li><code>$HOME/.ecfg/keys</code> (if running as non-root user)</li>
+<li><code>/etc/ecfg/keys</code></li>
+<li><code>/opt/ejson/keys</code> (for backwards-compatibility with <code>ejson</code>)</li>
+</ul>
+
+
+<p>When passing <code>-k</code> or <code>--keydir</code> to <code>ecfg</code>, or when invoked with <code>ECFG_KEYDIR</code>
+in the environment, this lookup path is completely ignored and the key is
+instead retrieved from or stored to the provided path.</p>
+
+<p>If <code>ECFG_PRIVATE_KEY</code> is set for decryption, the key directories aren't even
+touched; instead, we just assume the provided private key is the correct one,
+failing if it's not.</p>
+
+<h2 id="WORKFLOW">WORKFLOW</h2>
+
+<h3 id="1-Create-the-Keydir">1: Create the Keydir</h3>
+
+<p>By default, <code>ecfg</code> looks for keys in <code>/opt/ecfg/keys</code>. You can change this by
+setting <code>ECFG_KEYDIR</code> or passing the <code>-keydir</code> option.</p>
+
+<pre><code>$ mkdir -p /opt/ecfg/keys
+</code></pre>
+
+<h3 id="2-Generate-a-keypair">2: Generate a keypair</h3>
+
+<p>When called with <code>-w</code>, <code>ecfg keygen</code> will write the keypair into the <code>keydir</code>
+and print the public key. Without <code>-w</code>, it will print both keys to stdout. This
+is useful if you have to distribute the key to multiple servers via
+configuration management, etc.</p>
+
+<pre><code>$ ecfg keygen
+Public Key:
+63ccf05a9492e68e12eeb1c705888aebdcc0080af7e594fc402beb24cce9d14f
+Private Key:
+75b80b4a693156eb435f4ed2fe397e583f461f09fd99ec2bd1bdef0a56cf6e64
+
+$ ./ecfg keygen -w
+53393332c6c7c474af603c078f5696c8fe16677a09a711bba299a6c1c1676a59
+$ cat /opt/ecfg/keys/5339*
+888a4291bef9135729357b8c70e5a62b0bbe104a679d829cdbe56d46a4481aaf
+</code></pre>
+
+<h3 id="3-Create-an-ecfg-file">3: Create an ecfg file</h3>
+
+<p>The format is described in more detail in <a class="man-ref" href="ecfg.5.html">ecfg<span class="s">(5)</span></a>. For now, create a file that
+looks something like this. Fill in the <code>&lt;key></code> with whatever you got back in
+step 2.</p>
+
+<p>Create this file as <code>test.ecfg.json</code>:</p>
+
+<pre><code>{
+  "_public_key": "&lt;key>",
+  "database_password": "1234password"
+}
+</code></pre>
+
+<p>You can also use YAML or TOML if you'd prefer, as long as there's a
+<code>_public_key</code> element at the top-level.</p>
+
+<h3 id="4-Encrypt-the-file">4: Encrypt the file</h3>
+
+<p>Running <code>ecfg encrypt test.ecfg.json</code> will encrypt any new plaintext keys in
+the file, and leave any existing encrypted keys untouched:</p>
+
+<pre><code>{
+  "_public_key": "63ccf05a9492e68e12eeb1c705888aebdcc0080af7e594fc402beb24cce9d14f",
+  "database_password": "EJ[1:WGj2t4znULHT1IRveMEdvvNXqZzNBNMsJ5iZVy6Dvxs=:kA6ekF8ViYR5ZLeSmMXWsdLfWr7wn9qS:fcHQtdt6nqcNOXa97/M278RX6w==]"
+}
+</code></pre>
+
+<p>Try adding another plaintext secret to the file and run <code>ecfg encrypt
+test.ecfg.json</code> again. The <code>database_password</code> field will not be changed, but the
+new secret will be encrypted.</p>
+
+<h3 id="5-Decrypt-the-file">5: Decrypt the file</h3>
+
+<p>To decrypt the file, you must have a file present in the <code>keydir</code> whose name is
+the 64-byte hex-encoded public key exactly as embedded in the <a class="man-ref" href="ecfg.5.html">ecfg<span class="s">(5)</span></a> document.
+The contents of that file must be the similarly-encoded private key. If you used
+<code>ecfg keygen -w</code>, you've already got this covered.</p>
+
+<p>Unlike <a class="man-ref" href="ecfg-encrypt.1.html">ecfg-encrypt<span class="s">(1)</span></a>, which overwrites the specified files, <a class="man-ref" href="ecfg-decrypt.1.html">ecfg-decrypt<span class="s">(1)</span></a>
+only takes one file parameter, and prints the output to <code>stdout</code>:</p>
+
+<pre><code>$ ecfg decrypt foo.ecfg.json
+{
+  "_public_key": "63ccf05a9492e68e12eeb1c705888aebdcc0080af7e594fc402beb24cce9d14f",
+  "database_password": "1234password"
+}
+</code></pre>
+
+<p>TODO</p>
+
+<h2 id="BUGS">BUGS</h2>
+
+<p>Report security issues to <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#98;&#x75;&#x72;&#x6b;&#x65;&#x2e;&#x6c;&#x69;&#x62;&#98;&#x65;&#x79;&#x40;&#115;&#104;&#111;&#x70;&#x69;&#x66;&#121;&#x2e;&#x63;&#x6f;&#x6d;" data-bare-link="true">&#98;&#x75;&#x72;&#x6b;&#101;&#46;&#108;&#105;&#x62;&#x62;&#101;&#121;&#64;&#x73;&#104;&#x6f;&#x70;&#x69;&#102;&#121;&#x2e;&#x63;&#111;&#109;</a> and
+<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#x73;&#x65;&#99;&#x75;&#114;&#105;&#x74;&#121;&#x40;&#115;&#104;&#111;&#112;&#x69;&#102;&#x79;&#46;&#x63;&#x6f;&#109;" data-bare-link="true">&#115;&#101;&#99;&#117;&#x72;&#105;&#x74;&#x79;&#x40;&#x73;&#104;&#111;&#112;&#105;&#x66;&#121;&#46;&#99;&#x6f;&#x6d;</a>.</p>
+
+<p>File non-security-related bugs at <a href="https://github.com/Shopify/ecfg" data-bare-link="true">https://github.com/Shopify/ecfg</a>.</p>
+
+<h2 id="COPYRIGHT">COPYRIGHT</h2>
+
+<p><code>ecfg</code> is copyright (C) 2016 Shopify under MIT license.</p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p><a class="man-ref" href="ecfg-encrypt.1.html">ecfg-encrypt<span class="s">(1)</span></a>, <a class="man-ref" href="ecfg-decrypt.1.html">ecfg-decrypt<span class="s">(1)</span></a>, <a class="man-ref" href="ecfg-keygen.1.html">ecfg-keygen<span class="s">(1)</span></a>, <a class="man-ref" href="ecfg.5.html">ecfg<span class="s">(5)</span></a></p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'>Shopify</li>
+    <li class='tc'>July 2016</li>
+    <li class='tr'>ecfg(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>
