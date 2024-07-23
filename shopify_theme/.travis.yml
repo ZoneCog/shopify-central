@@ -1,0 +1,6 @@
+langauge: ruby
+sudo: false
+rvm:
+  - 2.0.0
+env:
+  - VERIFY_CERT=true
