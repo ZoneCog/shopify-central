@@ -1,0 +1,5 @@
+empty.com:
+  config:
+    providers:
+      - DynECT
+  records: []

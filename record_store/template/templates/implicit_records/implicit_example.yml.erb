@@ -1,0 +1,15 @@
+each_record:
+- type: A
+  fqdn: abc.123.com.
+- type: TXT
+except_record:
+- fqdn: !ruby/regexp /^_/
+conflict_with:
+- type: TXT
+  fqdn: <%= record.fqdn %>.more.domain.com.
+injected_records:
+- type: CNAME
+  ttl: 3600
+  fqdn: <%= record.fqdn %>.added.information.com
+  cname: <%= record.fqdn %>.more.added.information.com.
+

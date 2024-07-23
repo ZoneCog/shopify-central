@@ -1,0 +1,12 @@
+cache: bundler
+language: ruby
+rvm:
+  - 3.2.1
+
+before_install:
+  - gem update --system
+  - gem --version
+
+before_script:
+  - bin/rubocop --version && bin/rubocop
+  - bin/setup

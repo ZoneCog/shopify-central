@@ -1,0 +1,22 @@
+dynect.example.com:
+  config:
+    providers:
+      - DynECT
+    ignore_patterns:
+    - type: NS
+      fqdn: dynect.example.com.
+    implicit_records_templates:
+    - implicit_example.yml.erb
+  records:
+  - type: A
+    fqdn: a-record.dynect.example.com.
+    ttl: 86400
+    address: 10.10.10.42
+  - type: TXT
+    fqdn: marco.dynect.example.com.
+    ttl: 300
+    txtdata: polo
+  - type: TXT
+    fqdn: ping.dynect.example.com.
+    ttl: 300
+    txtdata: pong

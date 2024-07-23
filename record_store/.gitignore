@@ -1,0 +1,8 @@
+._*
+test/vcr_debug.log
+dev/
+pkg/
+tmp/
+Gemfile.lock
+.bundle/config
+.byebug_history

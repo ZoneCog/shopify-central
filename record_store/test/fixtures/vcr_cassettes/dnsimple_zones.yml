@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: "<DNSIMPLE_BASE_URL>/v2/<DNSIMPLE_ACCOUNT_ID>/zones?page=1&per_page=100"
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - dnsimple-ruby/4.4.0
+      Authorization:
+      - Bearer <DNSIMPLE_API_TOKEN>
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 20 Feb 2018 19:41:59 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Ratelimit-Limit:
+      - '2400'
+      X-Ratelimit-Remaining:
+      - '2336'
+      X-Ratelimit-Reset:
+      - '1519155898'
+      Etag:
+      - W/"6f1d9816f91c1bbca07d9fcd732cf3b0"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 6bb3ab78-a2a5-4063-ace9-a0c344386b50
+      X-Runtime:
+      - '0.031711'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=31536000
+    body:
+      encoding: UTF-8
+      string: '{"data":[{"id":33953,"account_id":<DNSIMPLE_ACCOUNT_ID>,"name":"dns-scratch.me","reverse":false,"created_at":"2018-02-20T18:51:04Z","updated_at":"2018-02-20T19:41:54Z"}],"pagination":{"current_page":1,"per_page":100,"total_entries":1,"total_pages":1}}'
+    http_version: 
+  recorded_at: Tue, 20 Feb 2018 19:41:59 GMT
+recorded_with: VCR 4.0.0

@@ -1,0 +1,7 @@
+dnsimple.example.com:
+  config:
+    providers:
+      - DNSimple
+    ignore_patterns:
+    - type: NS
+      fqdn: dnsimple.example.com.

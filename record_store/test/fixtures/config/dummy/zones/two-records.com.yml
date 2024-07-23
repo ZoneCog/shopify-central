@@ -1,0 +1,7 @@
+two-records.com:
+  config:
+    providers:
+      - DynECT
+    ignore_patterns:
+      - type: NS
+        fqdn: two-records.com.

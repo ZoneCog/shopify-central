@@ -1,0 +1,7 @@
+secrets_path: secrets.json
+zones_path: zones/
+zones:
+  - empty.com
+  - one-record.com
+  - two-providers.com
+implicit_records_templates_path: templates/implicit_records/
