@@ -1,0 +1,25 @@
+name: hosted-payment-sim
+
+up:
+  - homebrew:
+    - openssl
+  - ruby: 2.5.3
+  - railgun
+  - bundler
+
+commands:
+  console:
+    syntax: ''
+    desc: 'open a console with the app loaded'
+    run: bundle exec irb -r ./app.rb
+  server:
+    syntax: ''
+    desc: 'start a rack server'
+    run: bundle exec rackup -o 192.168.64.1 -p 20000
+  test:
+    syntax: ''
+    desc: 'run app tests'
+    run: bundle exec ruby test/app_test.rb
+
+open:
+  'Hosted Payment Simulator': https://hosted-payment-sim.myshopify.io
