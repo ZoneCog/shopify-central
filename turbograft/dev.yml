@@ -1,0 +1,9 @@
+---
+name: turbograft
+up:
+- ruby: 2.5.8
+- bundler
+commands:
+  test: bundle exec rake test
+  js-test: bundle exec teaspoon
+  server: ./server
