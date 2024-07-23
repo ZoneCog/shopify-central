@@ -1,0 +1,7 @@
+.bundle
+.DS_Store
+*.orig
+.dotest
+.rvmrc
+*.gem
+tags
