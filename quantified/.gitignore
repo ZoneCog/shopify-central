@@ -1,0 +1,6 @@
+.DS_Store
+._*
+*.orig
+pkg/
+doc/
+.yardoc/
