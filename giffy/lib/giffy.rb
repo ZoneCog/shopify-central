@@ -1,0 +1,6 @@
+require 'tmpdir'
+require 'giffy/version'
+require 'giffy/pipeline'
+require 'giffy/processors/video_extraction_processor'
+require 'giffy/processors/image_sequence_processor'
+require 'giffy/processors/gif_generation_processor'
