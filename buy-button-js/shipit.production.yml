@@ -1,0 +1,9 @@
+dependencies:
+  override:
+    - yarn install --no-progress --ignore-engines
+
+deploy:
+  override:
+    - ejson decrypt -o config.json config.ejson
+    - npm run deploy
+    - npm publish
