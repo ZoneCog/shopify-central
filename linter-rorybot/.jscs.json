@@ -1,0 +1,32 @@
+{
+  "excludeFiles": [
+    "node_modules/"
+  ],
+  "preset": "yandex",
+  "requireQuotedKeysInObjects": true,
+  "disallowQuotedKeysInObjects": false,
+  "maximumLineLength": {
+    "value": 79,
+    "allExcept": [
+      "regex",
+      "comments"
+    ]
+  },
+  "jsDoc": {
+    "checkAnnotations": "jsdoc3",
+    "checkParamExistence": true,
+    "checkParamNames": true,
+    "checkRedundantAccess": true,
+    "checkRedundantParams": true,
+    "checkRedundantReturns": true,
+    "checkReturnTypes": true,
+    "checkTypes": "strictNativeCase",
+    "enforceExistence": true,
+    "requireHyphenBeforeDescription": true,
+    "requireNewlineAfterDescription": true,
+    "requireParamDescription": true,
+    "requireParamTypes": true,
+    "requireReturnDescription": true,
+    "requireReturnTypes": true
+  }
+}
