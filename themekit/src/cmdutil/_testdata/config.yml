@@ -1,0 +1,16 @@
+development:
+  theme_id: 123
+  password: abracadabra
+  store: store.myshopify.com
+  ignore_files:
+  - charmander
+  - bulbasaur
+  - squirtle
+production:
+  theme_id: 123
+  password: abracadabra
+  store: store.myshopify.com
+  ignore_files:
+  - charmander
+  - bulbasaur
+  - squirtle
