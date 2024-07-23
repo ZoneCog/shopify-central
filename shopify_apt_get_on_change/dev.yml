@@ -1,0 +1,6 @@
+name: shopify-apt-get-on-change
+
+up:
+  - ruby:
+      version: 2.1.8
+  - bundler
