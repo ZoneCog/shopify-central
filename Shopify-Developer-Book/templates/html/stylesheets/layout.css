@@ -1,0 +1,412 @@
+/* ============ */
+/* = DEFAULTS = */
+/* ============ */
+/* line 28, ../sass/layout.sass */
+html * {
+  font: normal normal normal 12pt/normal Constantia, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+}
+
+/* ========= */
+/* = PAGES = */
+/* ========= */
+@page {
+  margin: 0.75in 1in 10mm 1in;
+  size: 8.5in 11in portrait;
+  @footnotes {
+    border-top: thin solid black;
+    margin-left: 30%;
+    margin-top: 0.6em;
+    padding-top: 0.3em;
+}
+
+  @bottom-right {
+    content: counter(page);
+    font-size: 0.75em;
+    margin-top: -2em;
+    margin-right: -2em;
+}
+}
+
+@page toc {
+  margin-right: 6mm;
+  @bottom-right {
+    content: "";
+}
+}
+
+@page cover {
+  margin: 0;
+  @bottom-right {
+    content: "";
+}
+}
+
+/* ============= */
+/* = BOOKMARKS = */
+/* ============= */
+/* line 64, ../sass/layout.sass */
+h1, h2, h3, h4, h5, h6 {
+  prince-bookmark-level: none;
+}
+
+/* line 67, ../sass/layout.sass */
+.frontcover h1 {
+  prince-bookmark-level: 1;
+}
+
+/* line 71, ../sass/layout.sass */
+.chapter h2 {
+  prince-bookmark-level: 2;
+}
+/* line 73, ../sass/layout.sass */
+.chapter h3 {
+  prince-bookmark-level: 3;
+}
+/* line 75, ../sass/layout.sass */
+.chapter h4 {
+  prince-bookmark-level: 4;
+}
+/* line 77, ../sass/layout.sass */
+.chapter h5 {
+  prince-bookmark-level: 5;
+}
+/* line 79, ../sass/layout.sass */
+.chapter h6 {
+  prince-bookmark-level: 6;
+}
+
+/* ============= */
+/* = CONTAINER = */
+/* ============= */
+/* line 87, ../sass/layout.sass */
+div.container {
+  height: 7in;
+  left: 0;
+  page: cover;
+  position: absolute;
+  top: 0;
+  width: 9.25in;
+  z-index: -1;
+}
+/* line 96, ../sass/layout.sass */
+div.frontcover {
+  background: white;
+}
+/* line 98, ../sass/layout.sass */
+div.frontcover div {
+  width: 91%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 0.25in;
+  position: absolute;
+  top: 2.5in;
+}
+/* line 106, ../sass/layout.sass */
+div.frontcover h1 {
+  color: #00aaee;
+  font-size: 42pt;
+  text-align: center;
+}
+/* line 111, ../sass/layout.sass */
+div.frontcover p {
+  font-size: 18pt;
+}
+/* line 113, ../sass/layout.sass */
+div.frontcover p.description {
+  color: #666666;
+  font: normal normal normal 16pt/normal Baskerville, "Hoefler Text", Garamond, "Times New Roman", serif;
+  margin-top: 5mm;
+}
+/* line 117, ../sass/layout.sass */
+div.frontcover p.authors {
+  color: #666666;
+  font: italic normal normal 14pt/normal Baskerville, "Hoefler Text", Garamond, "Times New Roman", serif;
+  margin-top: 3mm;
+}
+/* line 121, ../sass/layout.sass */
+div.frontcover * {
+  margin: 0;
+}
+
+/* ============== */
+/* = FRONTCOVER = */
+/* ============== */
+/* =========== */
+/* = CHAPTER = */
+/* =========== */
+/* line 132, ../sass/layout.sass */
+#chapters {
+  counter-reset: page 1;
+  counter-reset: chapter 0;
+  page-break-before: always;
+}
+
+/* line 137, ../sass/layout.sass */
+.chapter {
+  color: #444444;
+  counter-reset: footnote 0;
+  page-break-after: always;
+}
+/* line 141, ../sass/layout.sass */
+.chapter p {
+  margin-bottom: 5mm;
+  line-height: 1.4;
+}
+/* line 144, ../sass/layout.sass */
+.chapter p em {
+  font-style: italic;
+}
+/* line 146, ../sass/layout.sass */
+.chapter a {
+  color: blue;
+  text-decoration: none;
+}
+/* line 149, ../sass/layout.sass */
+.chapter h2, .chapter h3, .chapter h4, .chapter h5 {
+  margin: 25pt 0 15pt 0;
+}
+/* line 151, ../sass/layout.sass */
+.chapter h2 {
+  color: #222222;
+  counter-increment: chapter;
+  font-size: 32pt;
+  line-height: 1;
+  string-set: header "Chapter " counter(chapter) ": " content();
+}
+/* line 157, ../sass/layout.sass */
+.chapter h2::before {
+  content: "Chapter " counter(chapter);
+  color: #999999;
+  display: block;
+  font-size: 18pt;
+  letter-spacing: 0;
+  margin-bottom: 0.3em;
+  white-space: pre;
+}
+/* line 165, ../sass/layout.sass */
+.chapter h3 {
+  color: #b62f32;
+  font-size: 28px;
+}
+/* line 168, ../sass/layout.sass */
+.chapter h4 {
+  font-size: 18px;
+}
+/* line 170, ../sass/layout.sass */
+.chapter h5 {
+  font-size: 15px;
+}
+/* line 172, ../sass/layout.sass */
+.chapter h6 {
+  font-size: 15px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+/* line 177, ../sass/layout.sass */
+.imprint {
+  background-color: #e2e7e2;
+  page: cover;
+  string-set: header "";
+  color: #5b5b5b;
+}
+/* line 182, ../sass/layout.sass */
+.imprint * {
+  color: #5b5b5b;
+  font-family: "Lucida Grande", arial, sans-serif;
+  font-size: 10pt;
+  margin: 0 0 2pt 0;
+}
+/* line 187, ../sass/layout.sass */
+.imprint div {
+  left: 0.5in;
+  position: absolute;
+  bottom: 0.3in;
+}
+
+/* ========== */
+/* = CODING = */
+/* ========== */
+/* line 196, ../sass/layout.sass */
+pre {
+  font-family: monaco, monospace;
+  font-size: 9pt;
+  line-height: 1.4;
+  padding: 1.5em;
+  margin-bottom: 1.4em;
+  background-color: #ededed;
+  -border-radius-topright: 4mm;
+  -moz-border-radius-topright: 4mm;
+  -webkit-border-top-right-radius: 4mm;
+  -border-radius-bottomright: 4mm;
+  -moz-border-radius-bottomright: 4mm;
+  -webkit-border-bottom-right-radius: 4mm;
+  -border-radius-topleft: 4mm;
+  -moz-border-radius-topleft: 4mm;
+  -webkit-border-top-left-radius: 4mm;
+  -border-radius-bottomleft: 4mm;
+  -moz-border-radius-bottomleft: 4mm;
+  -webkit-border-bottom-left-radius: 4mm;
+}
+/* line 205, ../sass/layout.sass */
+pre span, pre code {
+  font-family: monaco, monospace;
+  font-size: 9pt;
+  line-height: 1.4;
+}
+
+/* line 210, ../sass/layout.sass */
+code {
+  font-family: monaco, monospace;
+  font-size: 11pt;
+}
+
+/* ========= */
+/* = TABLE = */
+/* ========= */
+/* line 218, ../sass/layout.sass */
+table {
+  border-collapse: collapse;
+}
+
+/* line 221, ../sass/layout.sass */
+thead th {
+  background-color: #e9e9e9;
+}
+
+/* line 224, ../sass/layout.sass */
+th, td {
+  border: 1px solid #cccccc;
+  font-size: 11pt;
+  padding: 5pt;
+}
+
+/* ========= */
+/* = LISTS = */
+/* ========= */
+/* line 233, ../sass/layout.sass */
+li {
+  margin-bottom: 8pt;
+}
+
+/* line 235, ../sass/layout.sass */
+ul, ol {
+  margin-left: 15pt;
+  list-style-type: disc;
+}
+
+/* ========== */
+/* = FIGURE = */
+/* ========== */
+/* line 243, ../sass/layout.sass */
+.figure {
+  /* This is just some fancy CSS3 that will print out the contents of an Alt Tag after an image... */
+}
+/* line 245, ../sass/layout.sass */
+.figure img:after {
+  content: attr("alt");
+  display: block;
+  font-size: 11pt;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.5in;
+}
+
+/* line 253, ../sass/layout.sass */
+.figure {
+  margin-top: 0.5in;
+}
+/* line 255, ../sass/layout.sass */
+.figure img {
+  prince-image-resolution: 96dpi;
+  display: block;
+  max-width: 7.5in;
+  width: 7.5in;
+  overflow: hidden;
+}
+
+/* line 262, ../sass/layout.sass */
+img {
+  prince-image-resolution: 96dpi;
+}
+
+/* ===================== */
+/* = TABLE OF CONTENTS = */
+/* ===================== */
+/* line 269, ../sass/layout.sass */
+div.table-of-contents {
+  page: toc;
+}
+/* line 271, ../sass/layout.sass */
+div.table-of-contents h2 {
+  font-size: 36pt;
+}
+/* line 273, ../sass/layout.sass */
+div.table-of-contents a {
+  font-size: 11pt;
+  text-decoration: none;
+}
+/* line 276, ../sass/layout.sass */
+div.table-of-contents div.level2 a {
+  color: black;
+  font-weight: bold;
+}
+/* line 279, ../sass/layout.sass */
+div.table-of-contents #toc {
+  column-count: 2;
+  column-fill: auto;
+  column-gap: 5%;
+  column-rule: none;
+  column-width: 45%;
+}
+/* line 285, ../sass/layout.sass */
+div.table-of-contents #toc div {
+  padding-bottom: 10px;
+}
+/* line 287, ../sass/layout.sass */
+div.table-of-contents div.level3 {
+  margin-left: 20px;
+}
+/* line 289, ../sass/layout.sass */
+div.table-of-contents #toc div.level3 a {
+  color: #555555;
+}
+/* line 292, ../sass/layout.sass */
+div.table-of-contents div a::before {
+  color: #888888;
+  content: target-counter(attr(href), page) " ";
+  float: left;
+  font-weight: normal;
+  font-size: 11pt !important;
+  margin-right: 4px;
+  width: 40px;
+}
+/* line 300, ../sass/layout.sass */
+div.table-of-contents div.level3 a::before {
+  width: 20px;
+}
+/* line 302, ../sass/layout.sass */
+div.table-of-contents div.level4, div.table-of-contents div.level5, div.table-of-contents div.level6 {
+  display: none;
+}
+
+/* ===================== */
+/* = OTHER TEXT TWEAKS = */
+/* ===================== */
+/* line 309, ../sass/layout.sass */
+acronym:after {
+  content: " (" attr(title) ")";
+}
+
+/* ============= */
+/* = HIGHLIGHT = */
+/* ============= */
+/* line 316, ../sass/layout.sass */
+.highlight {
+  margin: 5mm 0;
+  font-size: 20pt;
+}
+/* line 319, ../sass/layout.sass */
+.highlight strong {
+  color: #b62f32;
+}
