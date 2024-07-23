@@ -1,0 +1,18 @@
+sudo: false
+language: ruby
+cache:
+  bundler: true
+rvm:
+  - "2.2.7"
+  - "2.3.4"
+  - "2.4.1"
+gemfile:
+  - Gemfile
+  - test/gemfiles/Gemfile-Rails-4.2
+  - test/gemfiles/Gemfile-Rails-5.0
+env:
+  - ADAPTER=mysql2
+  - ADAPTER=postgresql
+before_script:
+  - rake db:mysql:build
+  - rake db:postgresql:build
