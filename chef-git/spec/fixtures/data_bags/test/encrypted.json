@@ -1,0 +1,9 @@
+{
+  "id": "encrypted1",
+  "data": {
+    "encrypted_data": "c3okAaS6Y87BzxzZv7EmmRAwXo3uzGGjv9AF0o10TiQ=\n",
+    "iv": "5lsbVRdGpWqDGtBs6jp+CQ==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

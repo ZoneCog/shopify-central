@@ -1,0 +1,8 @@
+#!/opt/chef/embedded/bin/ruby
+
+$LOAD_PATH << File.dirname(File.realpath($0)) + '/../lib'
+
+require 'rubygems'
+require 'chef_git'
+
+load Gem.bin_path('chef', 'chef-client')
