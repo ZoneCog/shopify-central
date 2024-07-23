@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+
+gem install bundler --version '1.11.2'
+bundle check || bundle install -j 4
+
+for path in "./test/fixtures" "./test/fixtures/vendor-stub" "./test/fixtures/root-node-modules" "./test/demo"; do
+  pushd "$path" >/dev/null
+  yarn install
+  popd >/dev/null
+done
+pushd "./js/babel-plugin-sprockets-commoner-internal"
+npm install
+popd>/dev/null
+
+pushd "./test/demo"
+bundle check || bundle install -j 4
+popd>/dev/null
