@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ti:app xmlns:ti='http://ti.appcelerator.org'>
+<!-- These values are edited/maintained by Titanium Developer -->
+<id>com.meeech.shopify_theme2</id>
+<name>Shopify Theme</name>
+<version>1.0</version>
+<publisher>meeech</publisher>
+<url>http://mitchell.amihod.com</url>
+<icon>shopify.png</icon>
+<copyright>2011 by meeech</copyright>
+ <analytics>false</analytics>
+<!-- Window Definition - these values can be edited -->
+<window>
+<id>main</id>
+<title>Shopify Theme</title>
+<url>app://index.html</url>
+<width>800</width>
+<max-width>3000</max-width>
+<min-width>0</min-width>
+<height>534</height>
+<max-height>3000</max-height>
+<min-height>0</min-height>
+<fullscreen>false</fullscreen>
+<resizable>false</resizable>
+<chrome scrollbars="true">true</chrome>
+<maximizable>false</maximizable>
+<minimizable>true</minimizable>
+<closeable>false</closeable>
+</window>
+</ti:app>

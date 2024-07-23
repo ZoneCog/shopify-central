@@ -1,0 +1,211 @@
+<html>
+<head>
+  <script src="js/permfix.js"></script>
+  <script src="js/config.js"></script>
+  <script type="text/javascript">
+  var Ti = Titanium;
+  //@broken in 1.2 sdk :(
+  // Titanium.UI.getCurrentWindow().showInspector(true);
+  </script>  
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Shopify Theme Manager</title>
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+
+  <script src="js/yui-min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    var Themer = YUI.namespace('Themer'); //Our global object
+    Themer.shopFocus = false; //Custom Property
+  </script>
+  
+  <script type="text/javascript" charset="utf-8">
+      Ti.include("/lib/util.php");
+  </script>
+
+  <script src="js/alert.js"></script>
+  <script src="js/growl.js"></script>
+  <script src="js/io.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/views/shop.js"></script>
+  <script src="js/views/theme.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/handlers/asset-send.js"></script>
+  <script src="js/watchers.js"></script>
+
+  <link rel="stylesheet" href="css/panel-skin.css" type="text/css">
+  
+  
+</head>
+
+<body class="yui3-skin-shopify">
+  <header class="grey-bg">
+    <a href="http://www.shopify.com" class="external"><img src="img/logo.png" /></a>
+    <span>theme manager</span>
+  </header>
+  <section class="content clearfix">
+    <aside class="sidebar">
+      <strong>Your Shops:</strong>
+      
+      <!-- Populated with the shops -->
+      <div class="shop-list" id='shops'>
+      </div>
+      
+      <div class="add-shop-action">       
+        <a class="add-shop btn btn-large" href="#">Add Shop</a>        
+      </div>
+    </aside>    
+    <!-- This gets populated with the themes for the shop -->
+    <div id="themes-container">
+      <div id="no-shops" class="nothing hide">
+        <h1>No Shops Found</h1>
+        <h3>Click the Add Shop button to get started.</h3>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/jquery-1.7.2.min.js"></script>
+  <script src="js/bootstrap-dropdown.js"></script>
+  <script>
+YUI().use('node', 'event-custom', function(Y) {Y.on("domready", function() { 
+  //This is already a delegate, so no need to re-init when we add new themes
+  $('.dropdown-toggle').dropdown();
+  
+  //e.container == #shops
+  //e.currentTarget = clicked A
+  var shopClickHandler = function(e) {
+    var currentActive = e.container.one('a.active'),
+        currentThemeActive = Y.one('.theme-show'),
+        shopId = e.currentTarget.get('id');
+        
+    if(currentActive) { 
+      currentActive.removeClass('active');
+    }
+    e.currentTarget.addClass('active');
+    
+    if(currentThemeActive) {
+      Y.one('.theme-show').replaceClass('theme-show', 'theme-hide');
+    }
+    Y.one('#themes-'+shopId).replaceClass('theme-hide', 'theme-show');
+    
+    if(Themer.theApp.shops.getById(shopId).themes.isEmpty()) {
+      Y.one('#themes-'+shopId).append(Y.one('#no-themes'));
+      Y.one('#no-themes').removeClass('hide');
+    } else {
+      Y.one('#no-themes').addClass('hide');
+    }    
+  };
+
+  Y.one('#shops').delegate('click', shopClickHandler, 'a');
+  Y.Global.on('shop:switch', shopClickHandler);
+  
+  if(Themer.shopFocus !== false) {
+    Y.Global.fire('shop:switch', {
+      container: Y.one('#shops'), 
+      currentTarget: Y.one('#'+Themer.shopFocus)
+    });
+  }
+
+});});
+
+  </script>
+
+<!-- Some templates -->
+
+  <!-- Get Contents of these in scripts -->
+  
+  <!-- This it the wrapper around the Shop Links in the sidebar -->
+  <script type="text/x-template" id="shop-template">
+    <a href="#" class="{class}" id="{store}"></a>
+  </script>
+  
+  <script type="text/x-template" id="shop-themes-wrapper">
+    <div id="themes-{store}" class="themes {class}">
+      <div class="theme-header clearfix">
+        <h3>Themes for "{store}"</h3>
+        <a href="#" class="btn btn-danger remove-shop">Remove Shop</a>                
+        <a href="#" class="btn add-theme">Add Theme</a>
+      </div>
+      <div class="theme-list">
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="theme-template">
+    <div class="theme clearfix">
+      <div class="theme-info clearfix">
+        <div class="theme-status nowatch">
+
+        </div>
+        <div class="theme-name">
+          <h4>{name} [{role}]</h4>
+          <span class="path">{path}</span>
+        </div>
+      </div>
+      <div class="theme-options">
+        <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <img src="img/cog.png"/>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="external" href="{viewLink}">View Theme</a></li>
+            <li><a class="path" href="#">Show in Finder</a></li>
+            <li class="divider"></li>                    
+            <li><a class="open-in" href="#">Open In <span class="editor-name">{editor}</span></a></li>
+            <li class="divider"></li>                    
+            <li><a class="force-deploy" href="#">Force Deploy</a></li>
+            <li class="divider"></li>                    
+            <li><a class="remove-theme" href="#">Remove Theme</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <!-- These are grabbed as srcNode for panels -->
+  <div id='add-shop-panel' class='hide modal'>
+    <div class="modal-body">
+      <form class="lform form-vertical">
+          <fieldset>
+              <div>
+                  <label for='id'>Enter your shop's URL here:</label>
+                  <input type="text" name="id" value="" placeholder="ex: shop-name.myshopify.com">
+              </div>
+          </fieldset>
+      </form>    
+    </div>
+  </div>
+
+  <div id="no-themes" class="nothing hide">
+    <h1>No Themes Found</h1>
+    <h3>Click the Add Theme button to get started.</h3>
+  </div>
+
+  <div id="info-box" class="alert alert-info">
+    <h4 class="alert-heading">File uploaded</h4>
+    <span class="message">{filename}</span>
+  </div>
+
+  <div id='splash-page' class='hide modal'>
+      <div class="modal-body">
+        <img src="img/shopify.png" width="300">
+        <h1>Lets get started!</h1>
+        <p>Thanks for downloading the Shopify Theme Developer App! To begin, please add your shop.</p>
+        <p>The Shopify Theme Developer App will automatically upload your local theme changes to your shop.</p>
+        <div id="splash-btn-con"><a class="add-shop btn-primary btn-large" href="#">Add Shop!</a></div>
+        
+      </div>
+  </div>
+
+  <div id='connecting-shopify-panel' class='hide modal'>
+      <div class="modal-body">
+        <h3>Connecting to Shopify</h3>
+      </div>
+  </div>
+
+</body>
+</html>
