@@ -1,0 +1,11 @@
+name: buildkit
+
+type: ruby
+
+up:
+  - ruby
+  - bundler
+
+commands:
+  test:
+    run: bundle exec rake

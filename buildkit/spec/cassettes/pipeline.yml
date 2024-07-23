@@ -1,0 +1,138 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.buildkite.com/v2/organizations/shopify/pipelines/shipit-ci
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Buildkit v1.3.0
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer <<ACCESS_TOKEN>>
+  response:
+    status:
+      code: 200
+      message: 
+    headers:
+      date:
+      - Wed, 23 May 2018 09:08:21 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      server:
+      - nginx
+      x-frame-options:
+      - SAMEORIGIN, SAMEORIGIN
+      x-xss-protection:
+      - 1; mode=block
+      x-content-type-options:
+      - nosniff, nosniff
+      x-download-options:
+      - noopen
+      x-permitted-cross-domain-policies:
+      - none
+      referrer-policy:
+      - strict-origin-when-cross-origin
+      access-control-allow-methods:
+      - GET, POST, PUT, DELETE, OPTIONS
+      access-control-allow-origin:
+      - "*"
+      access-control-expose-headers:
+      - Link, Rate-Limit-Remaining, Rate-Limit-Limit, Rate-Limit-Reset, X-OAuth-Scopes
+      rate-limit-remaining:
+      - '99'
+      rate-limit-limit:
+      - '100'
+      rate-limit-reset:
+      - '39'
+      x-accepted-oauth-scopes:
+      - read_pipelines
+      x-oauth-scopes:
+      - read_user,read_organizations,read_pipelines,write_pipelines,read_builds,write_builds,read_build_logs,read_agents,write_agents
+      etag:
+      - W/"894ec471dea633dadb96e7d0e9f0c817"
+      cache-control:
+      - max-age=0, private, must-revalidate
+      x-request-id:
+      - aa64dcd5-15d8-4e23-b36d-363a833f36e9
+      x-runtime:
+      - '0.024982'
+      strict-transport-security:
+      - max-age=31536000; includeSubdomains; preload
+      x-ua-compatible:
+      - chrome=1
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "id": "81db2078-b12b-4a47-a043-f13930ec5d7a",
+          "url": "https://api.buildkite.com/v2/organizations/shopify/pipelines/shipit-ci",
+          "web_url": "https://buildkite.com/shopify/shipit-ci",
+          "name": "shipit_ci",
+          "description": "CI pipeline for shipit",
+          "slug": "shipit-ci",
+          "repository": "git@github.com:Shopify/shipit.git",
+          "branch_configuration": "",
+          "default_branch": "master",
+          "skip_queued_branch_builds": false,
+          "skip_queued_branch_builds_filter": null,
+          "cancel_running_branch_builds": false,
+          "cancel_running_branch_builds_filter": null,
+          "provider": {
+            "id": "github",
+            "settings": {
+              "trigger_mode": "code",
+              "build_pull_requests": true,
+              "pull_request_branch_filter_enabled": false,
+              "skip_pull_request_builds_for_existing_commits": true,
+              "build_pull_request_forks": false,
+              "prefix_pull_request_fork_branch_names": true,
+              "build_tags": false,
+              "publish_commit_status": true,
+              "publish_commit_status_per_step": false,
+              "repository": "Shopify/shipit"
+            },
+            "webhook_url": "https://webhook.buildkite.com/deliver/00000000000000000000000000000000000000000000000000"
+          },
+          "builds_url": "https://api.buildkite.com/v2/organizations/shopify/pipelines/shipit-ci/builds",
+          "badge_url": "https://badge.buildkite.com/dbe724e64fcb2392253702a7e9732428430298ad3f25ca94c0.svg",
+          "created_at": "2018-04-19T12:33:16.336Z",
+          "env": {
+
+          },
+          "scheduled_builds_count": 0,
+          "running_builds_count": 0,
+          "scheduled_jobs_count": 0,
+          "running_jobs_count": 1,
+          "waiting_jobs_count": 0,
+          "steps": [
+            {
+              "type": "script",
+              "name": ":buildkite: Pipeline Setup",
+              "command": "configure",
+              "artifact_paths": null,
+              "branch_configuration": null,
+              "env": {
+
+              },
+              "timeout_in_minutes": null,
+              "agent_query_rules": [
+                "queue=shopify-build"
+              ],
+              "concurrency": null,
+              "parallelism": null
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Wed, 23 May 2018 09:08:21 GMT
+recorded_with: VCR 2.9.3
