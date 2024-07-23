@@ -1,0 +1,17 @@
+{
+  "generator-plugin-wp": {
+    "name": "Shopify eCommerce Plugin - Shopping Cart",
+    "homepage": "https://www.shopify.com/buy-button",
+    "description": "Add ecommerce to WordPress in minutes!",
+    "version": "1.0.3",
+    "author": "WebDevStudios",
+    "authoremail": "contact@webdevstudios.com",
+    "authorurl": "http://webdevstudios.com",
+    "license": "GPLv2",
+    "slug": "shopify-ecommerce-shopping-cart",
+    "classname": "Shopify_ECommerce_Plugin",
+    "classprefix": "SECP_",
+    "prefix": "shopify_ecommerce_plugin",
+    "year": 2016
+  }
+}
