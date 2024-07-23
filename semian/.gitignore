@@ -1,0 +1,16 @@
+.bundle
+.byebug_history
+.rubocop-*
+.vagrant
+.vscode-server
+.vscode/ipch
+*.gem
+*.swo
+*.swp
+/checksums/
+/html/
+/lib/**/*.so
+/pkg
+/tmp
+nohup.out
+vendor/

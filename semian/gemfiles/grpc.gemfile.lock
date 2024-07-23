@@ -1,0 +1,43 @@
+PATH
+  remote: ..
+  specs:
+    semian (0.16.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    google-protobuf (3.21.12)
+    googleapis-common-protos-types (1.5.0)
+      google-protobuf (~> 3.14)
+    grpc (1.47.0)
+      google-protobuf (~> 3.19)
+      googleapis-common-protos-types (~> 1.0)
+    minitest (5.17.0)
+    mocha (2.0.2)
+      ruby2_keywords (>= 0.0.5)
+    rake (13.0.6)
+    rake-compiler (1.2.1)
+      rake
+    ruby2_keywords (0.0.5)
+    toxiproxy (2.0.2)
+    webrick (1.7.0)
+
+PLATFORMS
+  aarch64-linux
+  arm64-darwin-21
+  ruby
+  x86_64-darwin-21
+  x86_64-linux
+
+DEPENDENCIES
+  grpc (= 1.47.0)
+  minitest
+  mocha
+  rake
+  rake-compiler
+  semian!
+  toxiproxy
+  webrick
+
+BUNDLED WITH
+   2.4.3

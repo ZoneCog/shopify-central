@@ -1,0 +1,38 @@
+PATH
+  remote: ..
+  specs:
+    semian (0.16.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.17.0)
+    mocha (2.0.2)
+      ruby2_keywords (>= 0.0.5)
+    mysql2 (0.5.4)
+    rake (13.0.6)
+    rake-compiler (1.2.1)
+      rake
+    ruby2_keywords (0.0.5)
+    toxiproxy (2.0.2)
+    webrick (1.7.0)
+
+PLATFORMS
+  aarch64-linux
+  arm64-darwin-21
+  ruby
+  x86_64-darwin-21
+  x86_64-linux
+
+DEPENDENCIES
+  minitest
+  mocha
+  mysql2 (~> 0.5)
+  rake
+  rake-compiler
+  semian!
+  toxiproxy
+  webrick
+
+BUNDLED WITH
+   2.4.3

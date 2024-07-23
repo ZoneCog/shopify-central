@@ -1,0 +1,59 @@
+GIT
+  remote: https://github.com/rails/rails.git
+  revision: 4e71edfca8525417597b079440d876310dd6290d
+  specs:
+    activemodel (7.1.0.alpha)
+      activesupport (= 7.1.0.alpha)
+    activerecord (7.1.0.alpha)
+      activemodel (= 7.1.0.alpha)
+      activesupport (= 7.1.0.alpha)
+    activesupport (7.1.0.alpha)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      connection_pool (>= 2.2.5)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+
+PATH
+  remote: ..
+  specs:
+    semian (0.19.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
+    i18n (1.13.0)
+      concurrent-ruby (~> 1.0)
+    minitest (5.18.0)
+    mocha (2.0.2)
+      ruby2_keywords (>= 0.0.5)
+    rake (13.0.6)
+    rake-compiler (1.2.1)
+      rake
+    ruby2_keywords (0.0.5)
+    toxiproxy (2.0.2)
+    trilogy (2.4.1)
+    tzinfo (2.0.6)
+      concurrent-ruby (~> 1.0)
+    webrick (1.8.1)
+
+PLATFORMS
+  arm64-darwin-21
+  arm64-darwin-22
+  x86_64-linux
+
+DEPENDENCIES
+  activerecord!
+  minitest
+  mocha
+  rake
+  rake-compiler
+  semian!
+  toxiproxy
+  trilogy (~> 2.4)
+  webrick
+
+BUNDLED WITH
+   2.4.3

@@ -1,0 +1,6 @@
+---
+
+dependencies:
+  bundler:
+    without:
+      - test
