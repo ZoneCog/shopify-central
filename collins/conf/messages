@@ -1,0 +1,89 @@
+# Messages
+
+# --- Constraints
+constraint.required=The field is required
+constraint.minLength=The minimum length is {0}
+
+# --- Errors
+error.minLength=The minimum length is {0}
+error.truthy={0} is not truthy. Must be a value like ''true'' or ''false''.
+error.unknown=An unknown error occurred
+
+asset.id.notfound=No asset with ID {0} could be found
+asset.intake.error.chassisInvalid=Invalid chassis tag specified.
+asset.intake.error.chassisMismatch=Chassis tag of asset with tag ''{0}'' is ''{1}'', but ''{2}'' was scanned in.
+asset.intake.error.chassisMultiple=Asset ''{0}'' has multiple chassis tags, invalid configuration
+asset.intake.error.chassisNotFound=Asset ''{0}'' does not have an associated chassis tag
+asset.intake.error.new=Asset status must be new, was {0}
+asset.intake.error.type=Intake only supported for servers, asset is a {0}
+asset.intake.error.disabled=Intake is disabled. Enable by setting features.intakeSupported to true
+asset.intake.error.permissions=You do not have permissions to perform an asset intake
+asset.intake.failed=Intake of asset ''{0}'' failed. No additional information is available.
+asset.intake.success=Intake of asset ''{0}'' was successful.
+asset.missing=Asset with tag ''{0}'' does not exist
+asset.nomatch=Could not find any assets matching your query
+asset.status.invalid=Invalid asset status specified. Valid values are Incomplete, New, Unallocated, Provisioning, Provisioned, Allocated, Cancelled, Decommissioned or Maintenance.
+asset.state.invalid=Specified state is invalid.
+asset.tag.invalid=Specified asset tag ''{0}'' is invalid
+asset.update.attribute.invalid=Attribute specification is not valid. Must be of form key;value where key is the name of the attribute and value is the new value to set.
+asset.update.lshw.invalid=LSHW data should be XML.
+asset.update.lldp.invalid=LLDP data should be XML.
+asset.update.chassisTag.invalid=Chassis tag must be at least 1 character.
+asset.update.rackPosition.invalid=Rack position must be at least 1 character.
+asset.update.groupId.invalid=groupId must be a positive integer.
+
+assetfinder.attribute.invalid=Invalid attribute param. No ; was found in string ''{0}'', you may need to URL encode.
+assetfinder.tag.invalid=An asset tag must be at least 1 character.
+assetfinder.type.invalid=Invalid asset type specified.
+assetfinder.date.invalid={0} must be an ISO 8601 date format like ''{1}''.
+assetfinder.operation.invalid=Invalid operation specified. Valid operations are ''and'' or ''or''.
+
+assetlog.create.error.messageInvalid=message parameter must not be empty
+assetlog.create.error.messageTypeInvalid=specified log type is invalid, valid types are: {0}
+assetlog.create.error.messageSourceInvalid=specified source is invalid, valid sources are: {0}
+
+attributeresolver.notfound=Invalid search field ''{0}''. Not found as asset tag, IPMI field or IP Address field.
+
+controllers.AssetApi.updateStatus.invalidReason=No reason for the status change was specified.
+controllers.AssetApi.updateStatus.invalidInvocation=Either state or status must be specified but neither were found.
+controllers.AssetApi.updateStatus.stateConflict=State ''{1}'' can not be used with status ''{0}''
+
+controllers.AssetStateApi.createState.invalidName=The specified name is invalid. A name must be between 2 and 32 characters and be unique.
+controllers.AssetStateApi.createState.invalidDescription=The specified description is invalid. A description must be between 2 and 255 characters.
+controllers.AssetStateApi.createState.invalidLabel=The specified label is invalid. A label must be between 2 and 32 characters.
+
+controllers.AssetStateApi.deleteState.invalidName=The specified name is invalid. A name must be between 2 and 32 characters.
+controllers.AssetStateApi.deleteState.noSuchName=The specified state name does not exist and can not be deleted.
+controllers.AssetStateApi.deleteState.systemName=The specified state is a system name and can not be modified.
+
+controllers.updateForMaintenance.missingDescriptionAndStatus=A problem/solution description and status must both be specified
+controllers.updateForMaintenance.missingStatus=Asset status must be specified
+controllers.updateForMaintenance.missingDescription=A problem/solution description for the maintenance operation must be specified
+controllers.updateForMaintenance.missingState=A state must be specified. The state is used to help route the request.
+
+crypto.missingJCE=I'm sorry, but it looks like you may be missing the unlimited strength Java Cryptography Extension. Unfortunately this is required for operations. You can find more details here http://www.bouncycastle.org/wiki/display/JA1/Frequently+Asked+Questions.
+
+feature.ignoreDangerousCommands=Ignoring dangerous command for asset with tag ''{0}''. Configured by ''features.ignoreDangerousCommands''.
+
+ip_address.missingConfig=IP address config for ''{0}'' is missing (naked).
+ip_address.invalidConfig=IP address config for ''{0}'' has no IP address configuration attributes or is missing a required network attribute.
+ip_address.strictConfig=Strict address management is enabled which requires that all pools have a name, and does not allow the use of pool names that are not configured.
+ip_address.invalidDefaultPool=The specified default address pool ''{0}'' does not exist.
+
+powermanagement.disallowStatus=Assets in status {0} can not be power managed. Configured by ''powermanagement.disallowStatus''.
+powermanagement.disallowWhenAllocated=Can not execute {0} when asset is allocated. Configured by ''powermanagement.disallowWhenAllocated''.
+powermanagement.allowAssetTypes=Asset of type ''{0}'' does not support power management. Configured by ''powermanagement.allowAssetTypes''.
+
+powerconfiguration.unit.port.label=Plug Strip {0}
+powerconfiguration.unit.outlet.label=Outlet {0}
+powerconfiguration.missingData=Did not find value for ''{0}'', required for ''{1}''
+powerconfiguration.unitsRequired.range=unitsRequired must be between 0 and 18
+powerconfiguration.unitComponents.unspecified=If unitsRequired set, unitComponents must be as well
+powerconfiguration.unitComponents.invalid=Specified unitComponent ''{0}'' is invalid
+powerconfiguration.uniqueComponents.invalid=Specified uniqueComponent ''{0}'' not found in unitComponents
+powerconfiguration.validation.missingRequired=Power component ''{0}'' is required, but expected key ''{1}'' was not found
+powerconfiguration.validation.nonUnique=Power component ''{0}'' requires unique values across power units, but found duplicate value ''{1}''
+
+solr.invalidHome=solr.embeddedSolrHome ''{0}'' is not writable or not a directory
+solr.invalidUrl=solr.useEmbeddedServer is false and solr.externalUrl ''{0}'' is not valid
+sorttype.invalid=Invalid sort type ''{0}''

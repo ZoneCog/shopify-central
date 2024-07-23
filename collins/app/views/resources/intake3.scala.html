@@ -1,0 +1,64 @@
+@(asset: Asset, f: Form[actions.resources.IntakeStage3Action.DataForm])(implicit flash: Flash, req: Request[AnyContent])
+
+@import twitterBootstrap._
+@import helper._
+@import _root_.util.views.ListHelper.getPowerComponentsInOrder
+@import util._
+@import AssetMeta.Enum.{ChassisTag, RackPosition, ServiceTag}
+
+@main("Intake Step 3 - " + asset.tag) {
+<div class="page-header">
+  <h1>Asset Intake Step 3 <small>Verify Information for @asset.tag</small></h1>
+</div>
+<div class="row">
+  <div class="span8">
+    @notice("error")
+    @notice("warning")
+    @form(app.routes.Resources.intake(asset.getId, 3), 'class -> "form-horizontal") {
+    @formField {
+      @formLabel("ASSET_TAG", "Asset Tag")
+      @formInput {
+         <span id="ASSET_TAG" class="uneditable-input">@asset.tag</span>
+      }
+    } 
+    @formField {
+      @formLabel(ServiceTag.toString, "Service Tag")
+      @formInput {
+        <span id="@ServiceTag.toString" class="uneditable-input">
+          @asset.getMetaAttribute(ServiceTag.toString).map{a => @a.getValue()}.getOrElse{<em>-</em>}
+        </span>
+      }
+    }
+    @formField {
+      @f.forField(ChassisTag.toString) { field =>
+        @formLabel(field.name, "Chassis Tag")
+        @formInput {
+          <span id="@field.name" class="uneditable-input">@field.value.getOrElse("")</span>
+          <input type="hidden" name="@field.name" value="@field.value.getOrElse("")">
+        }
+      }
+    }
+    @inputText(f(RackPosition.toString), '_label -> "Rack Position", 'autocomplete -> "off", Symbol("enter-style") -> "tab", 'class -> "focus")
+    @getPowerComponentsInOrder.map { component =>
+    @inputText(f(component.key), '_help -> "Value Required", '_label -> component.label, 'autocomplete -> "off", Symbol("enter-style") -> "tab")
+    }
+    @f.globalError.map { error =>
+      <div class="alert alert-error">
+        <strong>Unable to intake node</strong> @error.message
+      </div>
+    }
+    <div class="form-actions">
+      <input type="submit" class="btn btn-primary" value="Done &rarr;">
+      <input type="hidden" name="stage" value="3">
+      <a class="btn" href="@app.routes.Resources.intake(asset.getId, 1)">Cancel</a>
+    </div>
+    }
+  </div>
+  <div class="span4">
+    <h3>Overview</h3>
+    <p>Scan the rack position and individual power ports of the chassis. These values will be
+    associated with the node. These values are used for determining what nodes are available in
+    which racks, and calculating power utilization/distribution.</p>
+  </div>
+</div>
+}

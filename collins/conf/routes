@@ -1,0 +1,113 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           app.Resources.index
+GET     /browse/physical/graph      app.Resources.browsePhysicalGraph
+GET     /browse/physical/table      app.Resources.browsePhysicalTable
+
+# Resources/Assets
+GET     /resources                  app.Resources.find(page: Int ?= 0, size: Int ?= 50, sort: String ?= "ASC", operation: String ?= "and", sortField: String ?= "TAG")
+GET     /resource/:id               app.Resources.intake(id: Long, stage: Int ?= 1)
+
+GET     /asset/create/:assetType    app.Resources.displayCreateForm(assetType: String)
+POST    /asset/create/:assetType    app.Resources.createAsset(assetType: String)
+GET     /asset/:tag/logs            app.CookieApi.getLogData(tag: String, page: Int ?= 0, size: Int ?= 10, sort: String ?= "DESC", filter: String ?= "")
+GET     /assets/logs                app.CookieApi.getAllLogData(page: Int ?= 0, size: Int ?= 100, sort: String ?= "DESC", filter: String ?= "")
+POST    /asset/:tag/log             app.CookieApi.submitLogData(tag: String)
+GET     /asset/:tag                 app.CookieApi.getAsset(tag: String)
+POST    /asset/:tag/maintenance     app.CookieApi.updateAssetForMaintenance(tag: String)
+POST    /asset/:tag/cancel          app.CookieApi.cancelAsset(tag: String)
+POST    /asset/:tag/delete          app.CookieApi.realDeleteAsset(tag: String)
+POST    /asset/:tag/provision       app.CookieApi.provisionAsset(tag: String)
+POST    /asset/:tag/power           app.CookieApi.powerManagement(tag: String)
+GET     /asset/:tag/power           app.CookieApi.powerStatus(tag: String)
+GET     /asset/:tag/similar         app.Resources.similar(tag: String, page: Int ?= 0, size: Int ?= 50, sort: String  ?= "ASC")
+
+GET     /asset/:tag/edit            app.Resources.editAsset(tag: String)
+# Admin pages
+GET     /admin/stats                controllers.Admin.stats
+GET     /admin/logs                 controllers.Admin.logs
+POST    /admin/cache/clear          controllers.Admin.clearCache
+GET     /admin/solr                 controllers.Admin.populateSolr
+
+# Help
+GET     /help                       app.HelpPage.index(t: String ?= controllers.Help.Default)
+
+# Authentication
+GET     /login                      controllers.Application.login
+POST    /login                      controllers.Application.authenticate
+GET     /openid                     controllers.Application.openid
+GET     /logout                     controllers.Application.logout
+GET     /account                    controllers.Application.account
+POST    /account                    controllers.Application.updateAccount
+
+# API
+
+# Generic Functionality
+GET     /api/timestamp                       app.Api.timestamp
+
+# Admin API
+GET     /api/admin/solr                      app.Api.repopulateSolr(waitForCompletion: String ?= "true")
+GET     /api/admin/solr/asset/:tag           app.Api.reindexAsset(tag: String)
+
+# IP Address API
+GET     /api/address/pools                   app.Api.getAddressPools(all: String ?= "true")
+GET     /api/asset/:tag/addresses            app.Api.getForAsset(tag: String)
+GET     /api/asset/with/address/:address     app.Api.assetFromAddress(address: String)
+GET     /api/assets/with/addresses/in/:pool  app.Api.assetsFromPool(pool: String)
+PUT     /api/asset/:tag/address              app.Api.allocateAddress(tag: String)
+POST    /api/asset/:tag/address              app.Api.updateAddress(tag: String)
+DELETE  /api/asset/:tag/addresses            app.Api.purgeAddresses(tag: String)
+
+# Log API
+PUT     /api/asset/:tag/log         app.Api.submitLogData(tag: String)
+GET     /api/asset/:tag/logs        app.Api.getLogData(tag: String, page: Int ?= 0, size: Int ?= 10, sort: String ?= "DESC", filter: String ?= "")
+GET     /api/assets/logs            app.Api.getAllLogData(page: Int ?= 0, size: Int ?= 100, sort: String ?= "DESC", filter: String ?= "")
+GET     /api/assets/logs/search     app.Api.searchLogs(page: Int ?=0, size: Int ?= 100, sortField: String ?="CREATED", sort: String ?= "DESC", query: String ?= "*")
+
+# Asset management API
+POST    /api/asset/:tag/ipmi        app.Api.updateIpmi(tag: String)
+POST    /api/asset/:tag/power       app.Api.powerManagement(tag: String)
+GET     /api/asset/:tag/power       app.Api.powerStatus(tag: String)
+POST    /api/provision/:tag         app.Api.provisionAsset(tag: String)
+GET     /api/provision/profiles     app.Api.getProvisioningProfiles
+
+# Asset API
+DELETE  /api/asset/:tag/attribute/:attribute   app.Api.deleteAssetAttribute(tag: String, attribute: String)
+POST    /api/asset/:tag/status      app.Api.updateAssetStatus(tag: String)
+PUT     /api/asset/:tag             app.Api.createAsset(tag: String)
+POST    /api/asset/:tag             app.Api.updateAsset(tag: String)
+DELETE  /api/asset/:tag             app.Api.deleteAsset(tag: String)
+GET     /api/asset/:tag             app.Api.getAsset(tag: String, location: Option[String])
+GET     /api/assets                 app.Api.getAssets(page: Int ?= 0, size: Int ?= 10, sort: String ?= "DESC", sortField: String ?= "TAG", details: String ?= "true")
+GET     /api/asset/:tag/similar     app.Api.similar(tag: String, page: Int ?= 0, size: Int ?= 50, sort: String  ?= "ASC")
+
+# State Management API
+PUT     /api/state/:name            app.Api.createState(name: String)
+POST    /api/state/:name            app.Api.updateState(name: String)
+DELETE  /api/state/:name            app.Api.deleteState(name: String)
+GET     /api/state/:name            app.Api.getState(name: String)
+GET     /api/states                 app.Api.getStates
+
+# Tag management API
+GET     /api/tags                   app.Api.getTags
+GET     /api/tag/:tag               app.Api.getTagValues(tag: String)
+POST    /api/tag/:tag/edit          app.Api.updateTagValues(tag: String)
+
+# Hierarchy manangement API
+POST    /api/hierarchy/:tag             app.Api.updateHierarchyValues(tag: String)
+GET     /api/hierarchy/:tag/children    app.Api.getChildren(tag: String)
+GET     /api/hierarchy/:tag/parent      app.Api.getParent(tag: String)
+GET     /api/hierarchy/nodes            app.Api.getAllNodes()
+DELETE  /api/hierarchy/:tag/:child      app.Api.deleteHierarchyLink(tag: String, child: String)
+
+
+# For testing
+GET     /api/asyncPing              app.Api.asyncPing(sleepMs: Long ?= 1000)
+GET     /api/ping                   app.Api.ping
+GET     /api/errorPing              app.Api.errorPing(id: Int ?= 1)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

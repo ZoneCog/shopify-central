@@ -1,0 +1,8 @@
+*.swp
+*.gem
+bin/test.rb
+rdoc
+.yardoc
+doc
+coverage
+config.yaml

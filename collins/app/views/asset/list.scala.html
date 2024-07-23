@@ -1,0 +1,105 @@
+
+@(assets: Page[models.asset.AssetView], sortDirection: SortDirection = SortDirection.SortAsc, sortField: Option[String] = None, paginateLink: Option[Int => String] = None)(implicit flash: Flash, req: Request[AnyContent])
+
+@import helper._
+@import _root_.util.views.{ListHelper, Formatter, Pagination}
+@import util.notice
+@import models.SortDirection._
+
+@link(newPage: Int) = @{
+  Pagination.paginate(paginateLink.map{f => f(newPage)}.getOrElse(app.routes.Resources.find(newPage, 50, "ASC", "and").toString), req.queryString)
+}
+@sortLink(sort: String) = @{
+  val sortDir = if (sortField.map{_ != sort}.getOrElse(true)) {
+    SortAsc
+  } else {
+    ! sortDirection
+  }
+  val prefix = app.routes.Resources.find(0, 50, sortDir.toString, "and", sort).toString
+  Pagination.paginate(prefix, req.queryString)
+}
+@rowClassFromAsset(a: models.asset.AssetView) = @{
+  a match {
+    case warn if warn.isIncomplete || warn.isNew => "warning"
+    case info if info.isProvisioning || info.isProvisioned => "info"
+    case ok if ok.isCancelled || ok.isDecommissioned => "success"
+    case err if err.isMaintenance => "error"
+    case default => ""
+  }
+}
+
+@main("Asset Search Results") {
+<div class="page-header">
+  <h1>Asset Search Results <small>Displaying @(assets.offset + 1) to @(assets.offset + assets.size) of @assets.total results</small></h1>
+</div>
+<div class="row">
+  <div class="span12">
+    @notice("message", Some("notice"))
+    @notice("error")
+    @notice("warning")
+    <table class="table table-bordered table-hover" data-size="50">
+      <thead>
+        <tr>
+          <th><a href="@sortLink("TAG")">Asset Tag</a></th>
+          @if(ListHelper.showHostname(assets)) {
+          <th><a href="@sortLink("HOSTNAME")">Hostname</a></th>
+          }
+	        <th><a href="@sortLink("MAINTENANCE_TAG")">Maintenance Tag</a></th>
+	        <th><a href="@sortLink("PRIMARY_ROLE")">Primary Role</a></th>
+          <th><a href="@sortLink("STATUS")">Status</a></th>
+          <th><a href="@sortLink("CREATED")">Created</a></th>
+          <th><a href="@sortLink("UPDATED")">Last Updated</a></th>
+          @if(ListHelper.showSoftLayerLink(assets)) {
+          <th>SL Link</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @assets.items.map { asset =>
+        <tr class="@rowClassFromAsset(asset)">
+          <td><a href="@(asset.remoteHost.getOrElse("") + app.routes.CookieApi.getAsset(asset.tag))">@asset.tag</a></td>
+          @if(ListHelper.showHostname(assets)) {
+          <td>@asset.getHostnameMetaValue.map(v => Formatter.elipse(v)).getOrElse { <em>Unknown</em> }</td>
+          }
+          <td>@asset.getMetaAttribute("MAINTENANCE_TAG").getOrElse { <em>Unknown</em> }</td>
+          <td>@asset.getPrimaryRoleMetaValue().getOrElse { <em>Unknown</em> }</td>
+          <td>@Formatter.elipse(asset.getStatusName(), 12)</td>
+          <td>@asset.created.format("yyyy-MM-dd HH:mm:ss")</td>
+          <td>@asset.updated.map(_.format("yyyy-MM-dd HH:mm:ss")).getOrElse { <em>Never</em> }</td>
+          @if(ListHelper.showSoftLayerLink(assets)) {
+            @slLink(asset)
+          }
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    <div id="pagination" class="pagination">
+      <ul>
+        @assets.prev.map { page =>
+          <li class="prev">
+            <a href="@link(page)">&larr; Previous</a>
+          </li>
+        }.getOrElse {
+          <li class="prev disabled">
+            <a>&larr; Previous</a>
+          </li>
+        }
+        <li class="current">
+          <a>Displaying @(assets.offset + 1) to @(assets.offset + assets.items.size) of @assets.total</a>
+        </li>
+        @assets.next.map { page =>
+          <li class="next">
+            <a href="@link(page)">Next &rarr;</a>
+          </li>
+        }.getOrElse {
+          <li class="next disabled">
+            <a>Next &rarr;</a>
+          </li>
+        }
+
+      </ul>
+    </div>
+  </div>
+</div>
+}

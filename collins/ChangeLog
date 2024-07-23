@@ -1,0 +1,55 @@
+1.2.4   2014/03/07
+
+	* Docs: Various documentation/labeling fixes ( #95, #94, #99, #103, #104)
+	* Bug: vlan names can be optional (Chris Burroughs #93)
+	* Bug: squeryl session cleanup and updated deployment automation (Dallas Marlow #109)
+	* Build: Upgraded to play 2.0.4, to handle a UTF8 issue (Dallas Marlow #108)
+	* Build: Upgraded bonecp (Dallas Marlow #110)
+	* Metrics: Added Metrics support (Chris Burroughs #86)
+	* Housekeeping: Added dockerfiles, so users can build and run Collins with Docker, if they choose to (Johannes 'fish' Ziemke #111)
+	* Housekeepin: Minor script fixes (Will Richard and Brent Langston #97 and #113)
+	* Bug: Trim whitespace from strings before sending them to solr, to get more accurate results (Will Richard #115)
+	* UI: Update Bootstrap link in docs footer (Chris Rebert #119)
+	* Bug: Don't parse config yml files if plugins are disabled (Gabe Conradi #122)
+	* LSHW: Allow LSHW and LLDP updates in more states (Gabe Conradi #123)
+	* Support: Accept collins asset state when doing a state update or state delete (Dallas Marlow #124)
+	* Housekeeping: Created a 'contrib' directory for helpful script for running and maintaining collins (Will Richard & Gabe Conradi #126)
+	* API: Ensured that variables provided when using text/x-shellscript API endpoint are valid POSIX (Will Richard & Gabe Conradi #129)
+
+1.2.3		2013/04/24
+
+	* LSHW: Allow a default speed to be specified via defaultNicCapacity (Benjamin VanEvery #91)
+	* Bug: Evolution 11 autoinc should work with MySQL and H2 (Benjamin VanEvery #90)
+	* Bug: Exact match search when dropdown used in UI (Chris Burroughs #88)
+	* UI: Bookmarkable tabs and working logs refresh button in asset view (Chris Burroughs #87)
+	* Docs: Document ganglia graphing config (Chris Burroughs #84 and #85)
+	* UI: Display dimension of attribute in asset view (Chris Burroughs, Blake Matheny #83 and #79)
+	* Logging: Better LDAP failure messages (Chris Burroughs #79)
+	* LSHW: Include server description, vendor, etc during intake (Chris Burroughs #77)
+	* Graph: Ganglia GraphView support (Chris Burroughs #76)
+	* Shell: Support for size and threads parameter for batch operations (Blake Matheny #72)
+	* LSHW: Handle ghost CPUs in LSHW output (Chris Burroughs #70)
+
+1.2.2   2013/02/13
+
+	* Search: Refactored solr code, added log search API endpoint
+	* LDAP: Config now supports a 'schema' of rfc2307 or rfc2307bis (default)
+	* Search: Index decommissioned assets
+	* Bug: CQL parser should properly handle all quotes
+	* LSHW: Support for B.02.16 (thanks Johannes Ziemke)
+	* Bug: IP Address now retrieved for config assets (#47)
+	* Bug: Don't purge intake data on LSHW update (#55)
+	* Client: set_multi_attribute allows multiple updates, file upload support via '@'
+
+1.2.1		2012/11/01
+
+	* Build: Created install tool (scripts/setup) for initial setup
+	* Build: Made package.sh script a bit more correct
+	* Build: Starter config for use when packaging a release
+	* Deps: Remove snakeyaml-SNAPSHOT, code was integrated upstream
+	* Docs: Added ChangeLog
+	* Config: Fixed default ipmi configuration. Thanks Chris Graf
+
+1.2.0		2012/10/31
+
+	* initial release

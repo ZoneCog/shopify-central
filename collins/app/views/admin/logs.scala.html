@@ -1,0 +1,44 @@
+@()(implicit flash: Flash, req: Request[AnyContent])
+
+@main("Asset Logs") {
+<div class="row">
+  <div class="span12">
+    <script type="text/javascript">
+      var logDataCols = [
+        {"mDataProp": "CREATED", "sWidth": "20%"},
+        {"mDataProp": "SOURCE", "sWidth": "10%", "bSortable": false},
+        {"mDataProp": "ASSET_TAG", "sWidth": "15%"},
+        {"mDataProp": "TYPE", "sWidth": "10%", "bSortable": false},
+        {"mDataProp": "MESSAGE", "sWidth": "45%", "bSortable": false}
+      ];
+    </script>
+    <h1>All Log Data</h1>
+    <button id="logRefresh" style="float: right;" class="btn" data-interval-refresh="10;#log_data">Auto Refresh</button>
+    <div id="log_data_container">
+      <table id="log_data" class="log-data table table-striped table-condensed" data-size="100" data-cols="logDataCols" data-source="/assets/logs">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Source</th>
+            <th>Asset</th>
+            <th>Level</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Date</th>
+            <th>Asset</th>
+            <th>Source</th>
+            <th>Level</th>
+            <th>Message</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+  </div>
+</div>
+}

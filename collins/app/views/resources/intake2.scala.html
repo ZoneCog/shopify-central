@@ -1,0 +1,25 @@
+@(asset: Asset, f: Form[String])(implicit flash: Flash, req: Request[AnyContent])
+
+@import util.notice
+@import twitterBootstrap._
+@import helper._
+@import AssetMeta.Enum.ChassisTag
+
+@main("Intake Step 2 - " + asset.tag) {
+<div class="page-header">
+  <h1>Asset Intake Step 2 <small>Verify Chassis Tag for @asset.tag</small></h1>
+</div>
+<div class="row">
+  <div class="span12">
+    @notice("error")
+    @notice("warning")
+    @form(app.routes.Resources.intake(asset.getId, 2)) {
+    @inputText(f(ChassisTag.toString), '_label -> "Scan the Chassis Tag", 'class -> "focus", 'autocomplete -> "off")
+    <input type="hidden" name="stage" value="2">
+    <div class="actions">
+      <input type="submit" class="btn btn-primary" value="Next &rarr;">
+    </div>
+    }
+  </div>
+</div>
+}

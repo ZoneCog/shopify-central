@@ -1,0 +1,51 @@
+@(aa: models.asset.AllAttributes, user: User)(implicit flash: Flash, req: Request[AnyContent])
+
+@import helper._
+@import util.notice
+@import _root_.util.conversions._
+@import _root_.util.config.Feature
+@import _root_.util.plugins.{Maintenance, PowerManagement, Provisioner, SoftLayer}
+@import _root_.util.views.{ListHelper, OptionSorter, ProvisionerHelper, Summary, TagDecorator, Titler}
+@import _root_.models.IpmiInfo.Enum._
+
+@main(Titler(aa.asset)) {
+<!-- start notices -->
+<div class="row">
+  <div class="span12">
+    @notice("message", Some("notice"))
+    @notice("error")
+    @notice("warning")
+  </div>
+</div>
+<!-- end notices -->
+
+
+@show_menu(aa, user)
+
+<!-- main body -->
+<div class="row">
+  <div class="tab-content span12">
+
+@show_overview(aa, user)
+@show_hierarchy(aa, user)
+@show_network(aa, user)
+@show_ipmi(aa, user)
+@show_lldp(aa, user)
+@show_hwdetails(aa, user)
+@show_logs(aa, user)
+@show_graphs(aa, user)
+
+  </div>
+</div>
+<!-- end main body -->
+
+<!-- modals -->
+@showModal.maintenance(aa, user)
+@showModal.note(aa, user)
+@showModal.delete(aa, user)
+@showModal.provision(aa, user)
+@showModal.power(aa, user)
+@showModal.cancel(aa, user)
+
+<script src="@routes.Assets.at("javascripts/asset_show.js")" type="text/javascript"></script>
+}
