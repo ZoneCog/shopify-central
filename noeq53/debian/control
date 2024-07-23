@@ -1,0 +1,17 @@
+# vim: ft=debcontrol
+
+Source: noeqd
+Section: misc
+Priority: optional
+Maintainer: Camilo Lopez <camilo@shopify.com>
+Build-Depends: debhelper (>= 7), golang-stable (>= 1:1.1) | golang (>= 1:1-5)
+Standards-Version: 3.9.3
+
+Package: noeqd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Homepage: https://github.com/camilo/noeqd
+Description: Fault-tolerant network service for meaningful GUID generation
+ Noqed is fault-tolerant network service for meaningful GUID generation
+ it generates 64 bits long ids that are roughly sortable
+
