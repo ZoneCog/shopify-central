@@ -1,0 +1,118 @@
+#!/usr/bin/env python
+import os
+import sys
+import json
+import argparse
+import subprocess
+import logging as lg
+from os.path import basename, exists
+
+from azkaban import Job, Project
+from azkaban.remote import Session
+
+from environment import environment, targets
+
+formatter = lg.Formatter('%(asctime)s %(levelname)s %(name)s %(message)s', '%d/%m/%y %H:%M:%S')
+ch = lg.StreamHandler(sys.stdout)
+ch.setFormatter(formatter)
+logger = lg.getLogger('azkaban_submit_job')
+logger.setLevel(lg.INFO)
+logger.addHandler(ch)
+
+def start_session(url, username, password):
+    session = Session(url)
+    session.user = username
+    session.password = password
+    session.id = None
+    return session
+
+def run_shell_command(cmd, description, cwd=None, shell=False):
+    if not cwd:
+        cwd = os.getcwd()
+    p = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, shell=shell)
+    stdout, stderr = p.communicate()
+    logger.info('%s: %s' % (description, stdout))
+    if stderr:
+        logger.error(stderr)
+        exit(-1)
+    else:
+        return stdout.strip()
+
+def get_camus_version(path):
+    path = os.path.join(path, 'camus-shopify')
+    logger.info('Retrieving Camus version from %s' % path)
+    cmd = "mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -Ev '(^\[|Download\w+:)'"
+    return run_shell_command(cmd, 'Retrieved Camus version', path, True)
+
+def camus_job(target):
+    job_name = 'Camus Job'
+    camus_command = 'bash -c "! yarn application -list | grep \'%(job_name)s\' && echo \'Camus is not running\' && '
+    camus_command += 'java -Xms1G -Xmx2G -DHADOOP_USER_NAME=deploy -Dlog4j.configuration=file:/u/apps/%(target)s/shared/log4j.xml '
+    camus_command += '-cp $(hadoop classpath):/u/apps/%(target)s/current/camus-shopify-0.1.0-shopify1.jar:/etc/camus:/etc/hadoop/conf '
+    camus_command += 'com.linkedin.camus.etl.kafka.CamusJob -P /u/apps/%(target)s/shared/camus.properties"'
+    return camus_command % {'target': target, 'job_name': job_name}
+
+def deduplicate_folders():
+    # sha of when the deduplicator was first deployed, modify as needed
+    sha = 'd12baedea506271f1467776691c1ed8329fa8d5e'
+    return 'bash -c "docker run --rm --name=d12baedea506271 --net=host registry.chi2.shopify.io/speedboat:{sha} /app/run-deduplicator.sh"'.format(sha=sha)
+
+def reconcile(target, date):
+    return 'bash -c "cd /u/apps/{target}/current && . /u/apps/{target}/current/reconcile.sh {date} /u/apps/{target}/shared/camus.properties"'.format(target=target, date=date)
+
+def camus_project(project_name, target, env):
+    project = Project(project_name)
+
+    failure_email = 'camus@shopify.pagerduty.com' if env == 'production' else None
+
+    project.add_job('Import',
+                    Job({'failure.emails': failure_email,
+                         'type': 'command',
+                         'command': camus_job(target)
+                         }))
+    project.add_job("DedupFolders",
+                     Job({'failure.emails': None,
+                          'type': 'command',
+                          'command': deduplicate_folders()
+                          }))
+    project.add_job("CamusGCS-Reconcile-Yesterday",
+                    Job({'failure.emails': None,
+                         'type': 'command',
+                         'command': reconcile(target, date="""`date -d "yesterday" '+%Y/%m/%d'`""")
+                         }))
+
+
+    return project
+
+def schedule_jobs(project_name, session):
+    session.schedule_workflow(project_name, 'Import',                     date='01/01/2015', time="11,30,AM,UTC", period="1h",  concurrent=False)
+    session.schedule_workflow(project_name, 'CamusGCS-Reconcile-Yesterday', date='01/01/2015', time="16,00,PM,UTC", period="1d",  concurrent=False)
+
+def main():
+    repo_root = os.getcwd()
+    camus_jar = get_camus_version(repo_root)
+    azkaban_auth = json.load(open(os.path.join(repo_root, 'camus-shopify', 'azkaban.json')))
+
+    for target in targets:
+        project_name = target.title()
+        project_zip = "%s.zip" % target
+
+        project = camus_project(project_name, target, environment)
+
+        logger.info('Building %s file' % project_zip)
+        project.build(project_zip, True)
+
+        logger.info('Connecting to Azkaban site')
+        session = start_session(azkaban_auth['server'], azkaban_auth['user'], azkaban_auth['password'])
+
+        logger.info('Uploading %s file for' % project_zip)
+        session.upload_project(project_name, project_zip)
+        logger.info('Successfully uploaded %s zip file.' % project_name)
+
+        if environment == 'production':
+            schedule_jobs(project_name, session)
+            logger.info('Successfully scheduled %s flow.' % project_name)
+
+
+if __name__ == '__main__':
+    main()
