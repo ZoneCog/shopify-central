@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="../templates/html/stylesheets/screen.css"/>
+    <meta name="author" content="<%= authors.join(', ') %>" />
+    <meta name="subject" content="<%= subject %>" />
+    <meta name="keywords" content="<%= keywords %>" />
+    <meta name="date" content="<%= published_at %>" />
+  </head>
+  <body>
+    <div class="frontcover container">
+      <div>
+        <h1><%= title %></h1>
+        <p class="description"><%= subject %></p>
+        <p class="authors">By <%= authors.to_sentence %></p>
+      </div>
+    </div>
+
+    <div class="table-of-contents">
+      <h2 class="no-toc">Table of Contents</h2>
+      <div id="toc">
+        <%= toc %>
+      </div>
+    </div>
+
+    <div id="chapters">
+      <%= content %>
+    </div>
+
+    <div class="imprint container">
+      <div>
+        <h2><%= title %></h2>
+        <p><%= authors.to_sentence %></p>
+        <p><%= copyright %></p>
+      </div>
+    </div>
+  </body>
+</html>

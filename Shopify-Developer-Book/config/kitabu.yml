@@ -1,0 +1,39 @@
+# The book's title. Will be used everywhere!
+title: "A Developer's View of the Shopify Platform"
+
+# The book's language.
+language: en
+
+copyright: "Copyright Shopify 2012. This work is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License."
+
+# Who's publishing this book.
+publisher: "Shopify"
+
+# When this book was published.
+published_at: "2012-05-17"
+
+# Some book description.
+subject: "Six Years of Working with Merchants and their Shops"
+
+# Some keywords that identify this book.
+keywords: "Shopify, ecommerce, software development, API, JavaScript, Ruby, cloud computing"
+
+# Some unique identification. Works great with your domain
+# like `http://yourbook.example.com`.
+uid: "http://shopify.com/developer-handbook"
+
+# Your book identification like ISBN or ISSN.
+identifier:
+  id: "http://shopify.com/developer-handbook"
+  type: "URL" # can be ISBN, ISSN or URL
+
+# This book authors.
+authors:
+  - "David Lazar, P.Eng"
+
+# The theme that will be used for source
+# code syntax highlighting.
+theme: mac_classic
+
+# The base URL from your source code.
+base_url: http://shopify.com
