@@ -1,0 +1,63 @@
+<%= erb :"_top_bar", :layout => false, :locals => locals %>
+
+<h3>Shipwire Account</h3>
+
+<div class="well">
+  <% unless @service %>
+    <p>Please Enter your Shipwire Account to complete the installation</p>
+  <% end %>
+
+  <form method="POST" action="/fulfillment_service" role="form">
+    <% if @service %>
+      <input type="hidden" name="_method" value="put" />
+    <% end %>
+
+    <div class="form-group">
+      <div class="col-sm-4">
+
+        <div class="control-group">
+          <div class="controls">
+            <div class="input-prepend">
+              <span class="add-on"><i class="icon-user"></i></span>
+              <input type="text" name="username" <%= "value='#{@service.username}'" if @service.present? %> placeholder="username">
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="controls">
+            <div class="input-prepend">
+              <span class="add-on"><i class="icon-lock"></i></span>
+              <input type="password" name="password" <%= "value='password'" if @service.present? %> placeholder="password">
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="controls">
+            <input type="submit" class="btn btn-default" value="save">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+
+<h3>Products</h3>
+
+<% if @products.present? %>
+  <table class="table table-striped table-hover">
+    <tbody>
+      <% @products.each do |variant| %>
+        <tr>
+          <td>
+            <a href=<%="#{current_shop_url}/admin/products/#{variant.product_id}"%> target="_blank"> <%= variant.sku %> </a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p> No products are using this Fulfillment Service yet.</p>
+<% end %>
