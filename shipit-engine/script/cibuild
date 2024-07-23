@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Output all commands, stop on failures
+set -e
+set -x
+
+run_test_suite(){
+  bundle exec rake db:create db:schema:load test
+  bundle exec rake db:seed
+}
+
+case $SUITE in
+  mysql)
+    echo "Testing MySQL"
+    cp test/dummy/config/database.mysql.yml test/dummy/config/database.yml
+    run_test_suite
+    ;;
+  pg)
+    echo "Testing PostgreSQL"
+    cp test/dummy/config/database.postgresql.yml test/dummy/config/database.yml
+    run_test_suite
+    ;;
+  sqlite3)
+    echo "Testing SQLite3"
+    bundle exec rake db:create db:schema:load test
+    # TODO: Figure out why seed is failing with SQLite
+    ;;
+  rubocop)
+    bundle exec rubocop
+    ;;
+  setup)
+    unset BUNDLE_GEMFILE
+    export GITHUB_ORGANIZATION=acme
+    export TEMPLATE="${PWD}/template.rb"
+
+    cd /tmp
+
+    git config --global user.email "anonymous@example.com"
+    git config --global user.name "Anonymous"
+
+    gem install rails -v 7.1.1
+    rails _7.1.1_ new shipit -m "${TEMPLATE}" \
+      --skip-action-cable \
+      --skip-turbolinks \
+      --skip-action-mailer \
+      --skip-active-storage \
+      --skip-webpack-install \
+      --skip-action-mailbox \
+      --skip-action-text
+    ;;
+esac
+

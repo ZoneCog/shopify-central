@@ -1,0 +1,627 @@
+shipit:
+  repository: shipit
+  environment: "production"
+  branch: master
+  deploy_url: https://shipit.shopify.com
+  ignore_ci: false
+  merge_queue_enabled: true
+  tasks_count: 8
+  undeployed_commits_count: 2
+  cached_deploy_spec: |-
+    {
+      "machine": {
+        "environment": {
+        }
+      },
+      "review": {
+        "checklist": [
+          "foo",
+          "bar",
+          "baz"
+        ],
+        "monitoring": [
+          {
+            "image": "https://example.com/monitor.png",
+            "width": 200,
+            "height": 300
+          }
+        ]
+      },
+      "dependencies": {
+        "override": [
+
+        ]
+      },
+      "deploy": {
+        "override": null,
+        "interval": 60,
+        "max_commits": 3,
+        "variables": [
+          {
+            "name": "SAFETY_DISABLED",
+            "title": "Set to 1 to do dangerous things",
+            "default": 0
+          }
+        ]
+      },
+      "rollback": {
+        "override": [
+          "echo 'Rollback!'"
+        ]
+      },
+      "fetch": [
+        "echo '42'"
+      ],
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "variables": [
+            {
+              "name": "FOO",
+              "title": "Set to 0 to foo",
+              "default": 1
+            },
+            {
+              "name": "BAR",
+              "title": "Set to 1 to bar",
+              "default": 0
+            },
+            {
+              "name": "WALRUS",
+              "title": "Walrus without a default value"
+            }
+          ],
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        },
+        "flush_cache": {
+          "action": "Flush cache",
+          "description": "Flush the application cache",
+          "steps": [
+            "cap $ENVIRONMENT cache:flush"
+          ],
+          "allow_concurrency": true
+        }
+      },
+      "merge": {
+        "revalidate_after": 900
+      },
+      "ci": {
+        "hide": [
+          "ci/hidden"
+        ],
+        "allow_failures": [
+          "ci/ok_to_fail"
+        ]
+      }
+    }
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+shipit_canaries:
+  repository: shipit
+  environment: "canaries"
+  branch: master
+  ignore_ci: false
+  merge_queue_enabled: true
+  tasks_count: 3
+  undeployed_commits_count: 1
+  continuous_deployment: true
+  cached_deploy_spec: >
+    {
+      "machine": {"environment": {}},
+      "review": {
+        "checklist": ["foo", "bar", "baz"],
+        "monitoring": [
+          {"image": "https://example.com/monitor.png", "width": 200, "height": 300}
+        ]
+      },
+      "dependencies": {"override": []},
+      "deploy": {"override": null, "max_commits": 3, "variables": [{"name": "SAFETY_DISABLED", "title": "Set to 1 to do dangerous things", "default": 0}]},
+      "rollback": {"override": ["echo 'Rollback!'"]},
+      "fetch": ["echo '42'"],
+      "status": {
+        "context": "shipit/canaries",
+        "delay": 480
+      },
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "variables": [
+            {"name": "FOO", "title": "Set to 0 to foo", "default": 1},
+            {"name": "BAR", "title": "Set to 1 to bar", "default": 0},
+            {"name": "WALRUS", "title": "Walrus without a default value"}
+          ],
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        },
+        "flush_cache": {
+          "action": "Flush cache",
+          "description": "Flush the application cache",
+          "steps": [
+            "cap $ENVIRONMENT cache:flush"
+          ],
+          "allow_concurrency": true
+        }
+      },
+      "merge": {
+        "revalidate_after": 900
+      },
+      "ci": {
+        "hide": ["ci/hidden"],
+        "allow_failures": ["ci/ok_to_fail"]
+      }
+    }
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+cyclimse:
+  repository: cyclimse
+  environment: production
+  branch: master
+  ignore_ci: false
+  tasks_count: 0
+  undeployed_commits_count: 1
+  cached_deploy_spec: >
+    {
+      "machine": {"environment": {}},
+      "review": {
+        "checklist": ["foo", "bar", "baz"],
+        "monitoring": [
+          {"image": "https://example.com/monitor.png", "width": 200, "height": 300}
+        ]
+      },
+      "dependencies": {"override": []},
+      "deploy": {"max_commits": 2, "interval": 60, "override": null},
+      "rollback": {"override": ["echo 'Rollback!'"]},
+      "fetch": ["echo '42'"],
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        }
+      }
+    }
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+undeployed_stack:
+  repository: foo-bar
+  environment: "production"
+  branch: master
+  ignore_ci: true
+  tasks_count: 0
+  undeployed_commits_count: 1
+  cached_deploy_spec: >
+    {
+      "machine": {"environment": {}},
+      "review": {
+        "checklist": ["foo", "bar", "baz"],
+        "monitoring": [
+          {"image": "https://example.com/monitor.png", "width": 200, "height": 300}
+        ]
+      },
+      "dependencies": {"override": []},
+      "deploy": {"override": null},
+      "rollback": {"override": ["echo 'Rollback!'"]},
+      "fetch": ["echo '42'"],
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        }
+      },
+      "ci": {
+        "hide": ["ci/hidden"],
+        "allow_failures": ["ci/ok_to_fail"]
+      }
+    }
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+soc:
+  repository: soc
+  environment: "production"
+  branch: master
+  tasks_count: 0
+  undeployed_commits_count: 2
+  cached_deploy_spec: >
+    {
+      "machine": {"environment": {}},
+      "review": {
+        "checklist": ["foo", "bar", "baz"],
+        "monitoring": [
+          {"image": "https://example.com/monitor.png", "width": 200, "height": 300}
+        ]
+      },
+      "dependencies": {"override": []},
+      "deploy": {"override": null},
+      "rollback": {"override": ["echo 'Rollback!'"]},
+      "fetch": ["echo '42'"],
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        }
+      },
+      "ci": {
+        "blocking": ["soc/compliance"]
+      }
+    }
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+check_runs:
+  repository: check_runs
+  environment: production
+  branch: master
+  tasks_count: 0
+  undeployed_commits_count: 1
+
+shipit_undeployed:
+  repository: shipit
+  environment: "undeployed"
+  branch: master
+  ignore_ci: true
+  merge_queue_enabled: true
+  tasks_count: 2
+  undeployed_commits_count: 6
+  continuous_deployment: true
+  cached_deploy_spec: >
+    {
+      "machine": {"environment": {}},
+      "review": {
+        "checklist": ["foo", "bar", "baz"],
+        "monitoring": [
+          {"image": "https://example.com/monitor.png", "width": 200, "height": 300}
+        ]
+      },
+      "dependencies": {"override": []},
+      "deploy": {
+        "override": null,
+        "interval": 60,
+        "max_commits": 3,
+        "variables": [
+          {"name": "SAFETY_DISABLED", "title": "Set to 1 to do dangerous things", "default": 0},
+          {
+            "name": "DEPLOY_REGION",
+            "title": "Region to deploy to",
+            "default": "us-central",
+            "select": [
+              "us-central",
+              "us-east"
+            ]
+          }
+        ]
+      },
+      "rollback": {"override": ["echo 'Rollback!'"]},
+      "fetch": ["echo '42'"],
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "variables": [
+            {"name": "FOO", "title": "Set to 0 to foo", "default": 1},
+            {"name": "BAR", "title": "Set to 1 to bar", "default": 0},
+            {"name": "WALRUS", "title": "Walrus without a default value"}
+          ],
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        },
+        "flush_cache": {
+          "action": "Flush cache",
+          "description": "Flush the application cache",
+          "steps": [
+            "cap $ENVIRONMENT cache:flush"
+          ],
+          "allow_concurrency": true
+        }
+      },
+      "merge": {
+        "revalidate_after": 900
+      },
+      "ci": {
+        "hide": ["ci/hidden"],
+        "allow_failures": ["ci/ok_to_fail"]
+      }
+    }
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+shipit_single:
+  repository: shipit
+  environment: "single"
+  branch: master
+  ignore_ci: false
+  merge_queue_enabled: true
+  tasks_count: 2
+  undeployed_commits_count: 1
+  cached_deploy_spec: >
+    {
+      "machine": {"environment": {}},
+      "review": {
+        "checklist": ["foo", "bar", "baz"],
+        "monitoring": [
+          {"image": "https://example.com/monitor.png", "width": 200, "height": 300}
+        ]
+      },
+      "dependencies": {"override": []},
+      "deploy": {"override": null},
+      "rollback": {"override": ["echo 'Rollback!'"]},
+      "fetch": ["echo '42'"],
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        }
+      },
+      "ci": {
+        "blocking": ["soc/compliance"]
+      }
+    }
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+shipit_stats:
+  repository: shipit
+  environment: "stats"
+  branch: master
+  ignore_ci: false
+  merge_queue_enabled: true
+  tasks_count: 4
+  undeployed_commits_count: 1
+  cached_deploy_spec: >
+    {
+      "machine": {"environment": {}},
+      "review": {
+        "checklist": ["foo", "bar", "baz"],
+        "monitoring": [
+          {"image": "https://example.com/monitor.png", "width": 200, "height": 300}
+        ]
+      },
+      "dependencies": {"override": []},
+      "deploy": {"override": null},
+      "rollback": {"override": ["echo 'Rollback!'"]},
+      "fetch": ["echo '42'"],
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        }
+      },
+      "ci": {
+        "blocking": ["soc/compliance"]
+      }
+    }
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+shipit_task_no_commits:
+  repository: shipit
+  environment: "task_no_commits"
+  branch: master
+  ignore_ci: true
+  merge_queue_enabled: true
+  tasks_count: 1
+  undeployed_commits_count: 1
+  continuous_deployment: true
+  cached_deploy_spec: >
+    {
+      "machine": {"environment": {}},
+      "review": {
+        "checklist": ["foo", "bar", "baz"],
+        "monitoring": [
+          {"image": "https://example.com/monitor.png", "width": 200, "height": 300}
+        ]
+      },
+      "dependencies": {"override": []},
+      "deploy": {"override": null, "interval": 60, "max_commits": 3, "variables": [{"name": "SAFETY_DISABLED", "title": "Set to 1 to do dangerous things", "default": 0}]},
+      "rollback": {"override": ["echo 'Rollback!'"]},
+      "fetch": ["echo '42'"],
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "variables": [
+            {"name": "FOO", "title": "Set to 0 to foo", "default": 1},
+            {"name": "BAR", "title": "Set to 1 to bar", "default": 0},
+            {"name": "WALRUS", "title": "Walrus without a default value"}
+          ],
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        },
+        "flush_cache": {
+          "action": "Flush cache",
+          "description": "Flush the application cache",
+          "steps": [
+            "cap $ENVIRONMENT cache:flush"
+          ],
+          "allow_concurrency": true
+        }
+      },
+      "merge": {
+        "revalidate_after": 900
+      },
+      "ci": {
+        "hide": ["ci/hidden"],
+        "allow_failures": ["ci/ok_to_fail"]
+      }
+    }
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+check_deploy_spec:
+  repository: check_deploy_spec
+  environment: production
+  branch: master
+  ignore_ci: true
+  merge_queue_enabled: true
+  tasks_count: 0
+  undeployed_commits_count: 1
+  continuous_deployment: true
+  cached_deploy_spec: "{}"
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+review_stack:
+  type: Shipit::ReviewStack
+  repository: shipit
+  environment: "123"
+  branch: master
+  deploy_url: https://shipit.shopify.com
+  ignore_ci: false
+  merge_queue_enabled: true
+  tasks_count: 8
+  undeployed_commits_count: 2
+  cached_deploy_spec: |-
+    {
+      "machine": {
+        "environment": {
+        }
+      },
+      "review": {
+        "checklist": [
+          "foo",
+          "bar",
+          "baz"
+        ],
+        "monitoring": [
+          {
+            "image": "https://example.com/monitor.png",
+            "width": 200,
+            "height": 300
+          }
+        ]
+      },
+      "dependencies": {
+        "override": [
+
+        ]
+      },
+      "deploy": {
+        "override": null,
+        "interval": 60,
+        "max_commits": 3,
+        "variables": [
+          {
+            "name": "SAFETY_DISABLED",
+            "title": "Set to 1 to do dangerous things",
+            "default": 0
+          }
+        ]
+      },
+      "rollback": {
+        "override": [
+          "echo 'Rollback!'"
+        ]
+      },
+      "fetch": [
+        "echo '42'"
+      ],
+      "tasks": {
+        "restart": {
+          "action": "Restart application",
+          "description": "Restart app and job servers",
+          "variables": [
+            {
+              "name": "FOO",
+              "title": "Set to 0 to foo",
+              "default": 1
+            },
+            {
+              "name": "BAR",
+              "title": "Set to 1 to bar",
+              "default": 0
+            },
+            {
+              "name": "WALRUS",
+              "title": "Walrus without a default value"
+            }
+          ],
+          "steps": [
+            "cap $ENVIRONMENT deploy:restart"
+          ]
+        },
+        "flush_cache": {
+          "action": "Flush cache",
+          "description": "Flush the application cache",
+          "steps": [
+            "cap $ENVIRONMENT cache:flush"
+          ],
+          "allow_concurrency": true
+        }
+      },
+      "merge": {
+        "revalidate_after": 900
+      },
+      "ci": {
+        "hide": [
+          "ci/hidden"
+        ],
+        "allow_failures": [
+          "ci/ok_to_fail"
+        ]
+      }
+    }
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+
+archived_25hours_ago:
+  type: Shipit::ReviewStack
+  repository: cyclimse
+  environment: archived_25hours_ago
+  branch: master
+  ignore_ci: true
+  merge_queue_enabled: true
+  tasks_count: 8
+  undeployed_commits_count: 2
+  cached_deploy_spec: "{}"
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  archived_since: <%= 25.hours.ago.to_formatted_s(:db) %>
+
+archived_6hours_ago:
+  type: Shipit::ReviewStack
+  repository: cyclimse
+  environment: archived_6hours_ago
+  branch: master
+  ignore_ci: true
+  merge_queue_enabled: true
+  tasks_count: 8
+  undeployed_commits_count: 2
+  cached_deploy_spec: "{}"
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  archived_since: <%= 6.hours.ago.to_formatted_s(:db) %>
+
+archived_30minutes_ago:
+  type: Shipit::ReviewStack
+  repository: cyclimse
+  environment: archived_30minutes_ago
+  branch: master
+  ignore_ci: true
+  merge_queue_enabled: true
+  tasks_count: 8
+  undeployed_commits_count: 2
+  cached_deploy_spec: "{}"
+  last_deployed_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  updated_at: <%= 8.days.ago.to_formatted_s(:db) %>
+  archived_since: <%= 30.minutes.ago.to_formatted_s(:db) %>

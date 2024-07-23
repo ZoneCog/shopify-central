@@ -1,0 +1,19 @@
+<% if ENV['DATABASE_URL'].present? %>
+development:
+  database: shipit_engine_development
+
+test:
+  database: shipit_engine_test
+
+<% else %>
+default: &default
+  adapter: sqlite3
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+
+test:
+  <<: *default
+  database: db/test.sqlite3
+<% end %>

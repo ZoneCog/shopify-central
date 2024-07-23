@@ -1,0 +1,153 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    name: Lint Ruby
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+    - name: rubocop
+      run: |
+        bundle exec rubocop
+
+  postgres:
+    name: Tests with Postgres
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby_version:
+          - '3.0'
+
+    services:
+      db:
+        image: postgres:11
+        ports: ['5432:5432']
+        env:
+          POSTGRES_HOST_AUTH_METHOD: 'trust'
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis
+        ports:
+        - 6379:6379
+        options: --entrypoint redis-server
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby ${{ matrix.ruby_version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby_version }}
+        bundler-cache: true
+    - name: Run tests
+      env:
+        PGHOST: 127.0.0.1
+        PGUSER: postgres
+        RAILS_ENV: test
+      run: |
+        cp test/dummy/config/database.postgresql.yml test/dummy/config/database.yml
+        bundle exec rake db:create db:schema:load test
+        bundle exec rake db:seed
+
+  mysql:
+    name: Tests with MySQL
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby_version:
+          - '3.0'
+
+    services:
+      db:
+        image: mysql:8.0
+        ports:
+          - 3306
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+      redis:
+        image: redis
+        ports:
+        - 6379:6379
+        options: --entrypoint redis-server
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby ${{ matrix.ruby_version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby_version }}
+        bundler-cache: true
+    - name: Run tests
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: 'mysql2://root@127.0.0.1:${{ job.services.db.ports[3306] }}'
+      run: |
+        cp test/dummy/config/database.mysql.yml test/dummy/config/database.yml
+        bundle exec rake db:create db:schema:load test
+        bundle exec rake db:seed
+
+  sqlite:
+    name: Tests with SQLite3
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby_version:
+          - '3.0'
+          - '3.1'
+          - '3.2'
+          - '3.3'
+
+    services:
+      redis:
+        image: redis
+        ports:
+        - 6379:6379
+        options: --entrypoint redis-server
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby ${{ matrix.ruby_version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby_version }}
+        bundler-cache: true
+    - name: Run tests
+      env:
+        RAILS_ENV: test
+      run: |
+        bundle exec rake db:create db:schema:load test
+        bundle exec rake db:seed
+
+  setup:
+    name: Test setup script
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+    - name: Run setup script
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+
+        export SHIPIT_GEM_PATH="${PWD}"
+        mkdir /tmp/new-app
+        cd /tmp/new-app
+        gem install rails -v '~> 7.1.1' --no-document
+        rails new shipit --skip-action-cable --skip-turbolinks --skip-action-mailer --skip-active-storage --skip-webpack-install --skip-action-mailbox --skip-action-text -m "${SHIPIT_GEM_PATH}/template.rb"
+      env:
+        SHIPIT_EDGE: "1"

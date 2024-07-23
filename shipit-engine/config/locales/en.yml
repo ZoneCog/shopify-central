@@ -1,0 +1,96 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  stack:
+    nav:
+      refresh: Refresh statuses & commits
+      commits: Commits & Deploys
+      settings: Settings
+      timeline: Timeline
+      statistics: Stats
+      merge_queue: "Merge Queue (%{count})"
+      view_on_github: View on GitHub
+      links: More
+      deploy_link: View website
+  commit:
+    lock: Click to mark this commit as unsafe to deploy.
+    unlock: Click to mark this commit as safe to deploy.
+    unlock_with_author: "%{author} marked this commit as unsafe to deploy. Click to mark this commit as safe to deploy."
+    confirm_unlock: Mark this commit as safe to deploy?
+  release:
+    validate: Mark the release as healthy
+    reject: Mark the release as faulty
+  deploy_button:
+    hint:
+      max_commits: Use caution when deploying more than %{maximum} commits at once.
+      blocked: This commit range includes a commit that can't be deployed.
+    caption:
+      pending: Pending CI
+      failure: Failing CI
+      error: Failing CI
+      unknown: Not Run
+      locked: Locked
+      deploying: A Deploy is in Progress
+      allowed: Deploy
+      missing: Missing CI
+      blocked: Blocked
+  redeploy_button:
+    caption:
+      deploying: A Deploy is in Progress
+      allowed: Redeploy
+      locked: Locked
+  deploy_spec:
+    hint:
+      deploy: Impossible to detect how to deploy this application. Please define `deploy.override` in your shipit.yml
+      rollback: Impossible to detect how to rollback this application. Please define `rollback.override` in your shipit.yml
+      fetch: Impossible to detect how to fetch the deployed revision for this application. Please define `fetch` in your shipit.yml
+  missing_status:
+    description: "%{context} is required for deploy but was not sent yet."
+  deploys:
+    description: "deploy of %{sha}"
+  rollbacks:
+    description: "rollback to %{sha}"
+    create:
+      error:
+        deploy_in_progress: Rollbacks can't be triggered if a deploy is in progress
+  emergency_mode:
+    enable: Enable emergency mode
+    enable_description: Enable all UI controls and remove safeties to allow advanced troubleshooting measures
+    disable: Exit emergency mode
+
+  errors:
+    messages:
+      subset: "is not a strict subset of %{of}"
+      ascii: "contains non-ASCII characters"
+  deployment_description:
+    deploy:
+      in_progress: "%{author} triggered the deploy of %{stack} to %{sha}"
+      pending: "%{author} created the deploy of %{stack} to %{sha}"
+      success: "%{author} deployed %{stack} to %{sha}"
+      failure: "Deploy of %{stack} to %{sha} by %{author} failed"
+      error: "Deploy of %{stack} to %{sha} by %{author} failed"
+    rollback:
+      in_progress: "%{author} triggered the deploy of %{stack} to %{sha}"
+      pending: "%{author} created the rollback of %{stack} to %{sha}"
+      success: "%{author} rolled back %{stack} to %{sha}"
+      failure: "Rollback of %{stack} to %{sha} by %{author} failed"
+      error: "Rollback of %{stack} to %{sha} by %{author} failed"
