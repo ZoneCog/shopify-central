@@ -1,0 +1,52 @@
+{
+  "name": "hubot-flowdock",
+  "version": "0.6.4",
+  "author": {
+    "name": "Flowdock",
+    "url": "https://www.flowdock.com/"
+  },
+  "contributors": [
+    {
+      "name": "Arttu Tervo",
+      "email": "arttu.tervo@gmail.com"
+    },
+    {
+      "name": "Ville Lautanala",
+      "email": "lautis@gmail.com"
+    },
+    {
+      "name": "Antti Pitkanen",
+      "email": "apitkane@gmail.com"
+    }
+  ],
+  "keywords": [
+    "hubot",
+    "flowdock",
+    "adapter"
+  ],
+  "description": "A Flowdock adapter for hubot",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/flowdock/hubot-flowdock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/flowdock/hubot-flowdock/issues",
+    "email": "team@flowdock.com"
+  },
+  "dependencies": {
+    "flowdock": "0.6.x"
+  },
+  "devDependencies": {
+    "coffee-script": ">=1.2.0"
+  },
+  "main": "./src/flowdock",
+  "engines": {
+    "node": ">=0.4.7"
+  }
+}
