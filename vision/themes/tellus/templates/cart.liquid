@@ -1,0 +1,63 @@
+<script type="text/javascript">
+  function remove_item(id) {
+      document.getElementById('updates_'+id).value = 0;
+      document.getElementById('cartform').submit();
+  }
+</script>
+
+<div>
+
+  {% if cart.item_count == 0 %} 
+    <p>Your shopping cart is empty...</p>
+  {% else %}
+  <form action="/cart" method="post" id="cartform">
+    <div class="info">
+
+        <input type="submit" value="Continue to checkout" name="checkout" class="primary" /> &raquo;
+
+    </div>
+
+  <div id="cart">
+  
+  <h3 class="small">You have selected the items below for purchase</h3>
+
+    <ul id="line-items">
+      {% for item in cart.items %}
+      <li id="item-{{item.id}}" class="clearfix">
+        <div class="c-thumb">
+          <img src="{{item.product.featured_image | product_img_url: 'thumb' }}" alt="{{item.title | escape }}" title="{{item.title | escape }}" />
+        </div>
+        <h3>{{ item.title }}</h3>
+        <span class="money">{{ item.price | money}} each.</span>
+        <p class="right">
+          <label for="updates_{{item.variant.id}}">How many do you want? </label> 
+          <input type="text" size="4" name="updates[{{item.variant.id}}]" id="updates_{{item.variant.id}}" value="{{item.quantity}}" onfocus="this.select();"/><br />
+          <a href="#" onclick="remove_item({{item.variant.id}}); return false;" class="remove">(remove this item)</a>
+        </p>
+      </li>
+      {% endfor %}
+      <li id="total">
+        Subtotal: 
+        <span class="money">{{ cart.total_price | money_with_currency }}</span>
+      </li>
+      <li id="bottom-cart-functions">
+        <input type="submit" value="Continue to checkout" name="checkout" class="primary" style="float: right" />
+
+        <input type="submit" id="update-cart" name="update" value="Update My Cart" />
+      </li>
+
+      {% if additional_checkout_buttons %}
+      <li id="additional-checkout-buttons">
+        <p>- or -</p>
+        {{ content_for_additional_checkout_buttons }}
+      </li>
+      {% endif %}              
+    </ul>
+
+
+  </div>
+  </form>
+
+  {% endif %}
+
+</div>
