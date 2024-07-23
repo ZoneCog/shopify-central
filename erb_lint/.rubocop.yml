@@ -1,0 +1,15 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+Style/ClassMethodsDefinitions:
+  Enabled: false
+
+Style/ArrayIntersect:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'gemfiles/vendor/**/*'
+  DisplayCopNames: true
+  SuggestExtensions: false
