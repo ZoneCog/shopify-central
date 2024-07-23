@@ -1,0 +1,37 @@
+{
+	"ImportPath": "github.com/Shopify/brigade",
+	"GoVersion": "go1.3.3",
+	"Deps": [
+		{
+			"ImportPath": "code.google.com/p/go-uuid/uuid",
+			"Comment": "null-12",
+			"Rev": "7dda39b2e7d5e265014674c5af696ba4186679e9"
+		},
+		{
+			"ImportPath": "github.com/Sirupsen/logrus",
+			"Comment": "v0.5.1-2-gc13432b",
+			"Rev": "c13432b0a52fa22ed08301e522a0bdb2ce0e2d40"
+		},
+		{
+			"ImportPath": "github.com/aybabtme/formatter",
+			"Rev": "b52e1c5b43bc56cece0215ee6e18b454fcad7790"
+		},
+		{
+			"ImportPath": "github.com/aybabtme/humanize",
+			"Rev": "87902871d213a70457e2bd51391073b660250ab6"
+		},
+		{
+			"ImportPath": "github.com/codegangsta/cli",
+			"Comment": "1.0.0-72-gbb91895",
+			"Rev": "bb9189510af1f49580c073c9e59e8bf288f0df27"
+		},
+		{
+			"ImportPath": "github.com/pushrax/goamz/aws",
+			"Rev": "7e92e09019f097c0e61c56dbb47a4d66cff00979"
+		},
+		{
+			"ImportPath": "github.com/pushrax/goamz/s3",
+			"Rev": "7e92e09019f097c0e61c56dbb47a4d66cff00979"
+		}
+	]
+}
