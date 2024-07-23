@@ -1,0 +1,41 @@
+name: Run Tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+
+      - name: Install xcpretty
+        run: gem install xcpretty
+
+      - name: Setup Xcode Simulator
+        run: |
+          xcode-select -p
+          xcrun xcodebuild -version
+          xcrun simctl list runtimes
+          xcrun simctl list devicetypes
+          xcrun simctl delete all
+          CURRENT_SIMULATOR_UUID=$(xcrun simctl create TestDevice "iPhone 12")
+          echo "CURRENT_SIMULATOR_UUID=$CURRENT_SIMULATOR_UUID" >> $GITHUB_ENV
+
+      - name: Test Buy
+        run: ./Scripts/test_buy
+
+      - name: Test Buy TV
+        run: ./Scripts/test_buy_tv
+
+      - name: Test Buy Watch
+        run: ./Scripts/test_buy_watch
+
+      - name: Test Swift Package
+        run: swift test 2>&1 | xcpretty
