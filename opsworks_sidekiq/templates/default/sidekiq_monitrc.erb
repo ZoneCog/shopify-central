@@ -1,0 +1,13 @@
+<% @workers.each do |worker, options| %>
+  <% sidekiq_timeout = options[:sidekiq_timeout] %>
+  <% memory_limit_mb = options[:memory_limit_mb] %>
+  <% sidekiq_process_count = options[:sidekiq_process_count] %>
+  <% conf_file = "#{@deploy[:deploy_to]}/shared/config/sidekiq_swarm.yml" %>
+  <% syslog = @syslog ? "2>&1 | logger -t sidekiq-swarm" : '' %>
+
+check process sidekiq_swarm
+  matching "sidekiqswarm, managing"
+  start program = "/bin/su - <%= @deploy[:user] %> -c 'cd <%= @deploy[:current_path] %> && RAILS_ENV=<%= @deploy[:rails_env] %> SIDEKIQ_PRELOAD= SIDEKIQ_MAXMEM_MB=<%= memory_limit_mb %> SIDEKIQ_COUNT=<%= sidekiq_process_count %> bundle exec sidekiqswarm -C <%= conf_file %> -t <%= sidekiq_timeout %> -r <%= @deploy[:current_path] %> <%= syslog %>'" with timeout 90 seconds
+  stop  program = "/bin/su - <%= @deploy[:user] %> -c 'pkill -f "sidekiqswarm, managing <%= sidekiq_process_count %> processes"'" with timeout 90 seconds
+
+<% end %>
