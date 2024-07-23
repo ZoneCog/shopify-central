@@ -1,0 +1,6 @@
+pkg/*
+*.bundle
+.DS_Store
+tmp/
+.sass-cache
+*.gem
