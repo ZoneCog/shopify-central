@@ -1,0 +1,9 @@
+language: node_js
+
+node_js:
+  - "12.16.3"
+
+script: ./node_modules/.bin/testem ci -l phantomjs
+
+notifications:
+  disable: true
