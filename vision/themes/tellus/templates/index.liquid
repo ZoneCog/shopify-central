@@ -1,0 +1,32 @@
+<!-- LIST 3 PER ROW -->
+<h2>Featured Products</h2>
+<table id="products" cellspacing="0" cellpadding="0">
+{% tablerow product in collections.frontpage.products cols:3  %}
+   <a href="{{product.url}}">{{ product.featured_image | product_img_url: 'small' | img_tag }}</a>
+   <h3><a href="{{product.url}}">{{product.title}}</a></h3>
+   <ul class="attributes">
+     <li><span class="money">{{product.price_min | money}}</span></li>
+   </ul>
+{% endtablerow %}
+</table>
+<!-- /LIST 3 PER ROW  -->
+
+  <div id="articles">
+  	{% assign article = pages.frontpage %}
+
+    <div class="article">
+    {% if article.content != "" %}
+		  <h3>{{ article.title }}</h3>
+      <div class="article-body textile">
+  		  {{ article.content }}
+  		</div>
+  	{% else %}
+      <div class="article-body textile">
+  	  In <em>Admin &gt; Blogs &amp; Pages</em>, create a page with the handle <strong><code>frontpage</code></strong> and it will show up here.<br />
+  	  {{ "Learn more about handles" | link_to "http://wiki.shopify.com/Handle" }}
+      </div>
+  	{% endif %}
+    </div>
+    
+  </div>
+
