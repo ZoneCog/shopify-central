@@ -1,0 +1,7 @@
+---
+name: BrowserSniffer
+up:
+  - ruby
+  - bundler
+commands:
+  test: bundle exec rake test
