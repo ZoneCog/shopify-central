@@ -1,0 +1,19 @@
+name: Fetch Repositories
+
+on:
+  workflow_call:
+
+jobs:
+  fetch-repos:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Fetch repository list from Uncharted organization
+      run: |
+        curl -s https://api.github.com/orgs/shopify/repos?per_page=100 | jq -r '.[].name' > repo_list.txt
+
+    - name: Upload repo_list.txt
+      uses: actions/upload-artifact@v2
+      with:
+        name: repo_list
+        path: repo_list.txt
