@@ -1,0 +1,51 @@
+---
+exclude: !ruby/regexp '/
+  \.(?:
+    tmp |
+    swp
+  )$
+  |
+  \.(?:
+      bundle|
+      git|
+      hg|
+      idea|
+      svn|
+      vagrant
+    )\/
+  |
+  [gG]emfile(?:\.lock)?
+  |
+  (?:
+    support |
+    research
+  )\/
+  |
+  \.(?:
+    appveyor |
+    coveralls |
+    fasterer |
+    pullreview |
+    rubocop.* |
+    travis |
+    unused
+    )\.yml$
+  |
+  (?i:TAGS)$
+  |
+  \.(?:
+      DS_Store |
+      autotest |
+      byebug_history |
+      gemtest |
+      gitattributes |
+      gitignore |
+      hoerc |
+      minitest.rb |
+      simplecov-prelude.rb
+  )$
+  |
+  \.gemspec$
+  |
+  Vagrantfile$
+  /x'

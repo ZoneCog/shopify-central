@@ -1,0 +1,27 @@
+---
+language: ruby
+rvm:
+  - 2.6.0
+  - 2.5.3
+  - 2.4.5
+  - 2.3.8
+  - 2.2.10
+  - 2.1.10
+  - jruby-9.2.5.0
+  - jruby-9.1.17.0
+  - jruby-9.0.5.0
+  - jruby-head
+  - ruby-head
+matrix:
+  allow_failures:
+    - rvm: jruby-head
+    - rvm: ruby-head
+  fast_finish: true
+gemfile:
+  - Gemfile
+before_script:
+  - rake travis:before -t
+script: rake travis
+after_script:
+  - rake travis:after -t
+sudo: false
