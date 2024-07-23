@@ -1,0 +1,26 @@
+# This file is for Shopify employees development environment.
+# If you are an external contributor you don't have to bother with it.
+name: shipit-engine
+
+type: rails
+
+up:
+  - packages:
+    - sqlite
+  - ruby
+  - isogun
+  - bundler:
+      without: ci
+
+server:
+  root: test/dummy
+  port: 55330
+
+commands:
+  bootstrap: bin/bootstrap shopify
+  console: test/dummy/bin/rails console
+  test: bin/rails test "$@"
+  style: bin/rubocop --auto-correct
+
+open:
+  app: https://shipit-engine.myshopify.io
