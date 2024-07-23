@@ -1,0 +1,36 @@
+PATH
+  remote: .
+  specs:
+    skydb (0.3.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    addressable (2.3.2)
+    crack (0.3.2)
+    metaclass (0.0.1)
+    minitest (4.7.0)
+    mocha (0.13.3)
+      metaclass (~> 0.0.1)
+    multi_json (1.7.2)
+    rake (10.0.4)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
+    unindentable (0.1.0)
+    webmock (1.11.0)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest (~> 4.7.0)
+  mocha (~> 0.13.3)
+  rake (~> 10.0.4)
+  simplecov (~> 0.7.1)
+  skydb!
+  unindentable (~> 0.1.0)
+  webmock (~> 1.11.0)
