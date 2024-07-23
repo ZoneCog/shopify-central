@@ -1,0 +1,11 @@
+*.rb~
+.DS_store
+.rbenv
+.ruby-gemset
+.ruby-version
+.rvm
+Gemfile.lock
+coverage
+doc/
+pkg/
+.idea
