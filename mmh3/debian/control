@@ -1,0 +1,13 @@
+Source: mmh3
+Maintainer: Diederik van Liere <dvanliere@gmail.com>
+Section: python
+Priority: optional
+Build-Depends: python-all-dev (>= 2.6.6-3), debhelper (>= 8)
+Standards-Version: 3.9.3
+
+Package: python-mmh3
+Architecture: any
+Depends: ${misc:Depends}, ${python:Depends}, ${shlibs:Depends}
+Description: Python library for MurmurHash (MurmurHash3).
+ Python wrapper for MurmurHash (MurmurHash3), a set of fast and robust hash
+ functions. mmh3 2.3 supports both Python 2.7 and 3.x.
