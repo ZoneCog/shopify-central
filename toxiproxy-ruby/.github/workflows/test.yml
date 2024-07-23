@@ -1,0 +1,27 @@
+---
+
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: [ "3.0", "3.1", "3.2", "3.3" ]
+    name: Ruby ${{ matrix.ruby }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Install and start toxiproxy
+        run: ./bin/start-toxiproxy.sh
+      - name: Run tests
+        run: bundle exec rake test
