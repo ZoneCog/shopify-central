@@ -1,0 +1,49 @@
+name: identity-cache
+
+up:
+  - homebrew:
+    - mysql-client@5.7:
+        or:        [mysql@5.7]
+        conflicts: [mysql-connector-c, mysql, mysql-client]
+  - ruby
+  - isogun
+  - bundler
+
+env:
+  RAILGUN_HOST: identity-cache.railgun
+  MYSQL_HOST: identity-cache.railgun
+  MEMCACHED_HOST: identity-cache.railgun
+
+commands:
+  test:
+    syntax:
+      optional:
+        argument: file
+        optional: args...
+    desc: 'Run tests'
+    run: |
+      if [[ $# -eq 0 ]]; then
+        bundle exec rake test
+      else
+        bundle exec ruby -I test "$@"
+      fi
+
+  style:
+    desc: 'Run rubocop checks'
+    run: bundle exec rubocop "$@"
+
+  check:
+    desc: 'Run tests and style checks'
+    run: bundle exec rake test && bundle exec rubocop
+
+  benchmark-cpu:
+    desc: 'Run the identity cache CPU benchmark'
+    run: bundle exec rake benchmark:cpu
+
+  profile:
+    desc: 'Profile IDC code'
+    run: bundle exec rake profile:run
+
+  update-serialization-format:
+    desc: 'Update serialization format test fixture'
+    run: bundle exec rake update_serialization_format
