@@ -1,0 +1,6 @@
+---
+name: rorybot
+up:
+- ruby: 2.3.0
+- node:
+    version: v5.7.0

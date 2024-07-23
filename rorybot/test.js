@@ -1,0 +1,53 @@
+/**
+ * @author Adam Hollett and Jeremy Hanson-Finger
+ * @copyright 2016 Shopify
+ * @license ISC
+ * @module rorybot:test
+ * @fileoverview Test suite for rorybot.
+ */
+
+'use strict';
+
+/* eslint-env node */
+
+/*
+ * Dependencies.
+ */
+
+var test = require('ava');
+var alex = require('./');
+
+/*
+ * Tests. Note that these are small because alex is in fact
+ * just a collection of well-tested modules.
+ * See `wooorm/retext-equality` for the gist of what
+ * warnings are exposed.
+ */
+
+test('alex()', function (t) {
+    t.same(alex([
+        'The boogeyman wrote all changes to the **master server**. Thus,',
+        'the slaves were read-only copies of master. But not to worry,',
+        'he was a cripple.',
+        '',
+        'Eric is pretty set on beating your butt for sheriff.'
+    ].join('\n')).messages.map(String), [
+        '1:5-1:14: `boogeyman` may be insensitive, use `boogey` instead',
+        '1:42-1:48: `master` / `slaves` may be insensitive, use ' +
+            '`primary` / `replica` instead',
+        '3:1-3:3: `he` may be insensitive, use `they`, `it` instead',
+        '3:10-3:17: `cripple` may be insensitive, use `person with a ' +
+            'limp` instead',
+        '5:36-5:40: Don’t use “butt”, it’s profane'
+    ]);
+});
+
+test('alex.markdown()', function (t) {
+    t.same(alex.markdown('The `boogeyman`.').messages.map(String), []);
+});
+
+test('alex.text()', function (t) {
+    t.same(alex.text('The `boogeyman`.').messages.map(String), [
+        '1:6-1:15: `boogeyman` may be insensitive, use `boogey` instead'
+    ]);
+});
