@@ -1,0 +1,11 @@
+*.gem
+.bundle
+pkg/*
+.rvmrc
+.ruby-gemset
+bin/rake
+gemfiles/vendor
+omg.ponies
+*~
+coverage
+.idea/
