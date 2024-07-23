@@ -1,0 +1,67 @@
+AllCops:
+  TargetRubyVersion: 3.0
+  Exclude:
+    - tmp/*
+    - bin/*
+    - Gemfile
+    - lib/snippets/**/*
+    - vendor/**/*
+    - data/**/*
+    - db/schema.rb
+    - db/migrate/*
+    - test/dummy/**/*
+    - lib/shipit-engine.rb
+    - template.rb
+
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+Layout/LineLength:
+  Exclude:
+    - config/routes.rb
+    - test/**/*
+    - lib/tasks/teams.rake
+    - app/models/shipit/commit_deployment.rb
+    - app/models/shipit/commit_deployment_status.rb
+    - app/serializers/shipit/task_serializer.rb
+  Max: 120
+
+Style/SymbolProc:
+  Exclude:
+    - app/models/shipit/*
+
+Style/PerlBackrefs:
+  Enabled: false
+
+Naming/PredicateName:
+  Exclude:
+    - app/serializers/**/*
+
+Lint/RescueException:
+  Exclude:
+    - app/models/shipit/task_execution_strategy/default.rb
+
+Lint/SuppressedException:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+# This cop is broken https://github.com/rubocop-hq/rubocop/pull/7531
+Layout/RescueEnsureAlignment:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Naming/InclusiveLanguage:
+  Enabled: false
