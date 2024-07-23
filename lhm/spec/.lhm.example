@@ -1,0 +1,4 @@
+mysqldir=/usr/local/mysql
+basedir=~/lhm-cluster
+master_port=3306
+replica_port=3307

@@ -1,0 +1,50 @@
+name: Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        activerecord: ["6.1", "7.0", "7.1"]
+        ruby: ["3.0", "3.1", "3.2", "3.3", "head"]
+        mysql: ["5.7", "8.0"]
+        adapter: ["mysql2", "trilogy"]
+        exclude:
+          - activerecord: 6.1
+            ruby: head
+          - activerecord: 7.0
+            ruby: head
+
+    env:
+      BUNDLE_GEMFILE: "${{ github.workspace }}/gemfiles/activerecord_${{ matrix.activerecord }}.gemfile"
+      DATABASE_ADAPTER: "${{ matrix.adapter }}"
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{matrix.ruby}}
+          bundler-cache: true
+
+      - name: Install Ubuntu packages
+        run: sudo apt-get update && sudo apt-get install numactl libaio-dev libmysqlclient-dev
+
+      - name: Setup MySQL and ProxySQL (docker-compose)
+        # Might have to change to docker compose up -d (i.e. Compose V2) when the Ubuntu image changes the docker-compose version
+        run: docker-compose -f docker-compose-mysql-${{ matrix.mysql }}.yml up -d
+
+      - name: Wait until DBs are alive
+        run: ./scripts/helpers/wait-for-dbs.sh
+        timeout-minutes: 2
+
+      - name: Run tests
+        run: bundle exec rake specs
