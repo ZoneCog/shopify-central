@@ -1,0 +1,14 @@
+*.pyc
+tags
+/build
+*.swp
+/dist
+/MANIFEST
+/ShopifyAPI.egg-info
+*.egg
+/.idea
+.DS_Store
+.eggs
+.python-version
+.cache
+.tox/
