@@ -1,0 +1,12 @@
+routing:
+  cell_test:
+    foo: bar
+    spam: eggs
+  chain:
+    mac: "0c:c4:7a:05:77:1a"
+    serial: "S15500224715585"
+    product: "SYS-2027PR-HTTR"
+    manufacturer: "Supermicro"
+    board-serial: "ZM143S050147"
+    board-product: "X9DRT-PT"
+    ip: "172.16.1.165"

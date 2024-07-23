@@ -1,0 +1,18 @@
+#!ipxe
+<%
+ boot_server_ip = ENV['BOOT_SERVER'] || my_ip
+%>
+
+# see http://etherboot.org/wiki/commandline for details on smbios strings
+set boot-url http://<%= boot_server_ip %>/chain
+
+set uri-params  mac=${mac}
+set uri-params  ${uri-params}&serial=${serial}
+set uri-params  ${uri-params}&product=${product}
+set uri-params  ${uri-params}&manufacturer=${manufacturer}
+set uri-params  ${uri-params}&board-serial=${board-serial}
+set uri-params  ${uri-params}&board-product=${smbios/2.5.0}
+set uri-params  ${uri-params}&dhcp-server=${dhcp-server}
+
+set boot-uri ${boot-url}?${uri-params}
+chain --replace --autofree ${boot-uri} ||

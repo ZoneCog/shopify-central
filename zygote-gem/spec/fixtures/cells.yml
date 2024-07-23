@@ -1,0 +1,27 @@
+index:
+  timeout: 0 # timeout in seconds, 0 for none
+  cells:
+    test_os:
+      menu:
+        class: os
+        label: "OS Entry"
+      args:
+        data: value
+    test_util:
+      menu:
+        class: util
+        label: "Utility entry"
+      args:
+        data: value
+    nested:
+      args:
+        data: shadowed
+        foo: bar
+      menu:
+        class: os
+        label: "Menu with submenu"
+        submenu:
+          main_entry:
+            label: "Submenu entry"
+            args:
+              data: value
