@@ -1,0 +1,47 @@
+PATH
+  remote: .
+  specs:
+    hdfs-viking (0.0.8)
+      bundler
+      lock_jar
+      rake
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    highline (1.6.20)
+    httpclient (2.6.0.1)
+    json_pure (1.8.1)
+    lock_jar (0.13.0)
+      naether (~> 0.15.0)
+      thor (>= 0.18.1)
+    mime-types (1.25.1)
+    naether (0.15.0)
+      httpclient
+      rjb (> 1.4.0, < 1.6.0)
+    naether (0.15.0-java)
+      httpclient
+    package_cloud (0.2.44)
+      highline (= 1.6.20)
+      json_pure (= 1.8.1)
+      rainbow (= 2.1.0)
+      rest-client (~> 1.6.7)
+      thor (~> 0.18)
+    rainbow (2.1.0)
+    rake (10.4.2)
+    rest-client (1.6.9)
+      mime-types (~> 1.16)
+    rjb (1.5.3)
+    thor (0.19.1)
+
+PLATFORMS
+  java
+  ruby
+
+DEPENDENCIES
+  hdfs-viking!
+  package_cloud
+  rake
+
+BUNDLED WITH
+   1.15.3

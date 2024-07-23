@@ -1,0 +1,8 @@
+machine:
+  java:
+    version: oraclejdk7
+  pre:
+    - curl -s https://packagecloud.io/install/repositories/Shopify/stable/script.deb.sh | sudo bash
+    - sudo apt-get install shopify-ruby-jruby-1.7.6
+    - ln -s /usr/lib/shopify-ruby/jruby-1.7.6 /home/ubuntu/.rvm/rubies/jruby-1.7.6
+    - rvm use jruby-1.7.6
