@@ -1,0 +1,7 @@
+<% params.permit! %>
+<% query = params.to_h.slice('file').to_query %>
+<%= content_tag(:script, "", src: "/teaspoon_bundle/#{@suite.name}?#{query}") %>
+
+<script type="text/javascript">
+  Teaspoon.onWindowLoad(Teaspoon.execute);
+</script>
