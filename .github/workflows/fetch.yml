@@ -10,7 +10,8 @@ jobs:
     steps:
     - name: Fetch repository list from Shopify organization
       run: |
-        curl -s https://api.github.com/orgs/shopify/repos?per_page=100 | jq -r '.[].name' > repo_list.txt
+        curl -s https://api.github.com/orgs/shopify/repos?per_page=1200 | jq -r '.[].name' > repo_list.txt
+#        curl -s https://api.github.com/orgs/shopify/repos?per_page=100 | jq -r '.[].name' > repo_list.txt
 
     - name: Upload repo_list.txt
       uses: actions/upload-artifact@v2
