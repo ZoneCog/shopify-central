@@ -1,0 +1,35 @@
+name: Benchmarks
+
+on: push
+
+jobs:
+  test:
+    name: Send metric over UDP
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Run benchmark on branch
+      run: benchmark/send-metrics-to-local-udp-receiver
+
+    - name: Run throughput benchmark on branch
+      run: benchmark/local-udp-throughput
+
+    - uses: actions/checkout@v3
+      with:
+        ref: 'main'
+
+    - name: Install dependencies if needed
+      run: bundle check || bundle install --jobs 4 --retry 3
+
+    - name: Run benchmark on main
+      run: benchmark/send-metrics-to-local-udp-receiver
+
+    - name: Run throughput benchmark on main
+      run: benchmark/local-udp-throughput

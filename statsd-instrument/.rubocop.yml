@@ -1,0 +1,52 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+require:
+  - ./lib/statsd/instrument/rubocop.rb
+
+AllCops:
+  UseCache: true
+  SuggestExtensions: false
+  CacheRootDirectory: tmp/rubocop
+  Exclude:
+    - statsd-instrument.gemspec
+
+Naming/FileName:
+  Enabled: true
+  Exclude:
+    - lib/statsd-instrument.rb
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Style/WhileUntilModifier:
+  Enabled: false
+
+Style/IdenticalConditionalBranches:
+  Enabled: false
+
+# Enable our own cops on our own repo
+
+StatsD/MetricReturnValue:
+  Enabled: true
+
+StatsD/MetricValueKeywordArgument:
+  Enabled: true
+
+StatsD/PositionalArguments:
+  Enabled: true
+
+StatsD/SplatArguments:
+  Enabled: true
+
+StatsD/MetaprogrammingPositionalArguments:
+  Enabled: true
+
+StatsD/MeasureAsDistArgument:
+  Enabled: true
+
+StatsD/MetricPrefixArgument:
+  Enabled: true
