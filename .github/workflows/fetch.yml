@@ -10,19 +10,8 @@ jobs:
     steps:
     - name: Fetch repository list from Shopify organization
       run: |
-        PAGE=1
-        while true; do
-          echo "Fetching page $PAGE"
-          RESPONSE=$(curl -s -D - "https://api.github.com/orgs/shopify/repos?page=$PAGE&per_page=100" -o "repos_page_$PAGE.json")
-          if [ "$(jq 'length' repos_page_$PAGE.json)" -eq "0" ]; then
-            break
-          fi
-          jq -r '.[].name' repos_page_$PAGE.json >> repo_list.txt
-          LINK_HEADER=$(echo "$RESPONSE" | grep '^Link:' | sed 's/^Link: //')
-          if [[ "$LINK_HEADER" != *rel=\"next\"* ]]; then
-            break
-          fi
-          PAGE=$((PAGE + 1))
+        for PAGE in {1..12}; do
+          curl -s "https://api.github.com/orgs/shopify/repos?page=$PAGE&per_page=100" | jq -r '.[].name' >> repo_list.txt
         done
 
     - name: Upload repo_list.txt
