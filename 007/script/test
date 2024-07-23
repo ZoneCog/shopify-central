@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -ex
+
+source "$(dirname "${BASH_SOURCE[0]}")/util.bash"
+
+ensure_go_binary godep github.com/tools/godep
+ensure_go_binary errcheck github.com/kisielk/errcheck
+
+target="${root_path}/007"
+
+go fmt .
+go vet .
+godep go build -o "${target}"
+godep go test
+
+config_errcheck
+run_errcheck
