@@ -1,0 +1,16 @@
+# This file strictly follows the rules defined in the Ruby style guide:
+#   http://shopify.github.io/ruby-style-guide/
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 2.6
+  SuggestExtensions: false
+
+# Allow .ruby-version and spec.required_ruby_version to differ
+# to run a newer Ruby version for Rubocop, but don't force users to upgrade
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
