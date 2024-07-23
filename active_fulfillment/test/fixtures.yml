@@ -1,0 +1,16 @@
+shipwire:
+  login:
+  password:
+
+webgistix:
+  login:
+  password:
+
+amazon_mws:
+  login:
+  password:
+  seller_id:
+
+james_and_james:
+  subdomain:
+  key:
