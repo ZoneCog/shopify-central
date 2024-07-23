@@ -1,0 +1,33 @@
+Source: bcache-tools
+Maintainer: Gabriel de Perthuis <g2p.code+debian@gmail.com>
+Uploaders: Tom Strickx <tstrickx@rootcu.be>
+Section: utils
+Priority: optional
+Standards-Version: 3.9.4
+Build-Depends: debhelper (>= 9), pkg-config, uuid-dev, libblkid-dev
+Homepage: http://bcache.evilpiepirate.org/
+Vcs-Browser: https://github.com/g2p/bcache-tools
+Vcs-Git: https://github.com/g2p/bcache-tools.git
+
+Package: bcache-tools
+Architecture: linux-any
+Depends: ${shlibs:Depends}, ${misc:Depends}, initramfs-tools
+Description: bcache userspace tools
+ Bcache allows the use of SSDs to cache other block devices.
+ .
+ Documentation for the run time interface is included in the kernel tree, in
+ Documentation/bcache.txt.
+ .
+ This package includes udev rules, initramfs support and the following tools:
+ make-bcache
+ Formats block devices for use with bcache.  Devices can be formatted for use
+ as a cache or as a backing device.
+ The most important option is for specifying the bucket size.
+ Allocation is done in terms of buckets, and cache hits are counted per bucket;
+ thus a smaller bucket size will give better cache utilization, but poorer write
+ performance. The bucket size is intended to be equal to the size of your SSD's
+ erase blocks, which seems to be 128k-512k for most SSDs; feel free to
+ experiment.
+ .
+ bcache-super-show
+ Prints the bcache superblock of a cache device or a backing device.
