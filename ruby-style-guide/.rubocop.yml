@@ -1,0 +1,9 @@
+inherit_from:
+  - rubocop.yml
+
+AllCops:
+  SuggestExtensions: false
+  Exclude:
+    - _site/**/*
+    - node_modules/**/*
+    - vendor/**/*

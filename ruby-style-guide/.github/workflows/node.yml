@@ -1,0 +1,22 @@
+name: Node
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: '16'
+          check-latest: true
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Build
+        run: npm run build

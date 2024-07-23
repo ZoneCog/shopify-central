@@ -1,0 +1,32 @@
+name: Ruby
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Ruby ${{matrix.ruby}} / ${{matrix.gemfile}}
+
+    strategy:
+      matrix:
+        gemfile: [Gemfile, gemfiles/minimum_rubocop.gemfile]
+        ruby: ["3.0", "3.1", "3.2", "3.3"]
+
+    env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+    - name: Rubocop Version
+      if: ${{ matrix.gemfile == 'gemfiles/minimum_rubocop.gemfile' }}
+      run: bundle info rubocop | head -1
+    - name: RuboCop and Tests
+      run: bundle exec rake
+      env:
+        CHECKING_RUBOCOP_VERSION_COMPATIBILITY: ${{ matrix.gemfile == 'gemfiles/minimum_rubocop.gemfile' }}

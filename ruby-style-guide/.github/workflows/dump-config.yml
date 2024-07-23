@@ -1,0 +1,50 @@
+name: Dump config
+
+on: [push, pull_request]
+
+jobs:
+  check-token:
+    name: Check for token
+    runs-on: ubuntu-latest
+    outputs:
+      token-held: ${{ steps.set_output.outputs.token_held }}
+    steps:
+      - name: check for token
+        id: set_output
+        run: '[ -z "$TOKEN_HELD" ] || echo "token_held=true" >> "$GITHUB_OUTPUT"'
+        env:
+          TOKEN_HELD: ${{ secrets.SHOPIFY_GH_ACCESS_TOKEN }}
+
+  dump-config:
+    name: Dump config
+    needs: check-token
+    if: needs.check-token.outputs.token-held == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.SHOPIFY_GH_ACCESS_TOKEN }}
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.0'
+          bundler-cache: true
+
+      - name: Dump config
+        run: bundle exec rake config:dump
+
+      - name: Commit & push
+        uses: EndBug/add-and-commit@v9
+        id: push
+        with:
+          add: 'test/fixtures/full_config.yml'
+          default_author: github_actions
+          message: >
+            Dump full RuboCop config
+
+            This automated commit dumps the contents of the full RuboCop config.
+
+            [dependabot skip]

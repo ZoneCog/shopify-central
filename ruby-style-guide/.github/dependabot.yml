@@ -1,0 +1,31 @@
+version: 2
+
+updates:
+
+  - package-ecosystem: bundler
+    directory: '/'
+    versioning-strategy: increase
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: "rubocop"
+        # We only care about versions that might change config
+        update-types: ["version-update:semver-patch"]
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: daily
+    groups:
+      actions:
+        patterns:
+          - "*" # Update all GitHub Actions together
+
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: monthly
+    groups:
+      npm:
+        patterns:
+          - "*" # Update all npm dependencies together
