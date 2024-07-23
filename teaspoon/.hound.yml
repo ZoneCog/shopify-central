@@ -1,0 +1,8 @@
+ruby:
+  enabled: true
+  config_file: .code-style-ruby.yml
+coffee_script:
+  enabled: true
+  config_file: .code-style-coffee.json
+javascript:
+  ignore_file: .javascript_ignore
