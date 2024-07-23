@@ -1,0 +1,39 @@
+bcache-tools (1.0.4-1) raring; urgency=low
+
+  * udev: Simplify 69-bcache.rules
+  * udev: Skip DM devices marked private
+
+ -- Gabriel de Perthuis <g2p.code+debian@gmail.com>  Wed, 16 Oct 2013 14:19:34 +0200
+
+bcache-tools (1.0.3-1) raring; urgency=low
+
+  * Move probe-bcache to /lib/udev
+
+ -- Gabriel de Perthuis <g2p.code+debian@gmail.com>  Mon, 07 Oct 2013 19:29:28 +0200
+
+bcache-tools (1.0.2-1) raring; urgency=low
+
+  * udev: Fit into the standard rule sequence
+  * super-show: Print label
+  * super-show: Show sync mode and cache replacement policy
+
+ -- Gabriel de Perthuis <g2p.code+debian@gmail.com>  Sat, 05 Oct 2013 22:24:25 +0200
+
+bcache-tools (1.0.1-1) raring; urgency=low
+
+  * Use the absolute path to modprobe
+  * initramfs: Move hook to /usr/share, trigger a rebuild
+
+ -- Gabriel de Perthuis <g2p.code+debian@gmail.com>  Sun, 22 Sep 2013 01:16:40 +0200
+
+bcache-tools (1.0-3) raring; urgency=low
+
+  * Upstream some changes, depend on libblkid and pkg-config, refresh the metadata.
+
+ -- Gabriel de Perthuis <g2p.code+debian@gmail.com>  Tue, 03 Sep 2013 19:26:20 +0200
+
+bcache-tools (1.0-1) unstable; urgency=low
+
+  * Initial release. (Closes: #708132)
+
+ -- Tom Strickx <tstrickx@rootcu.be>  Tue, 14 May 2013 13:27:21 +0200
