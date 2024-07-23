@@ -1,0 +1,4 @@
+usr/sbin/
+lib/udev/rules.d/
+usr/share/man/man8/
+usr/share/initramfs-tools/hooks/
